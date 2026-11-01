@@ -1,0 +1,3 @@
+# Installed with apt on Ubuntu desktop only (not WSL, where the terminal runs on Windows).
+
+ghostty

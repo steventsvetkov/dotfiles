@@ -1,0 +1,8 @@
+# fzf colors, loaded through FZF_DEFAULT_OPTS_FILE (set in .zshrc).
+# Catppuccin Mocha with neutral backgrounds; bg:-1 uses the terminal background.
+# Based on https://github.com/catppuccin/fzf
+
+--color=bg:-1,bg+:#1e1e1e,fg:#cdd6f4,fg+:#cdd6f4
+--color=hl:#f38ba8,hl+:#f38ba8,info:#cba6f7,marker:#b4befe
+--color=prompt:#cba6f7,spinner:#f5e0dc,pointer:#f5e0dc,header:#f38ba8
+--color=border:#282828,label:#cdd6f4,selected-bg:#282828

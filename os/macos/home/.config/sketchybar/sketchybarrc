@@ -1,0 +1,322 @@
+#!/bin/zsh
+# SketchyBar, the menu bar replacement: https://felixkratz.github.io/SketchyBar/
+# Reload after editing: sketchybar --reload
+#
+# A minimal, solid dark charcoal bar attached to the
+# top of the screen. It is about as tall as the MacBook notch, so it takes almost no
+# space the notch does not already take:
+#
+#   [1 terminal] 2 browser  SERVICE  Ghostty  Standup in 12m
+#       (off) offline  (git)  (agents) 2  (PR) 1  (slack) 3  (claude) 96%  (vol) 45%  (bat) 80%  (app icons)  Thu 30 Oct 14:05
+#
+# Left:  AeroSpace workspaces with icons of their apps (empty ones hidden, a highlight
+#        sliding to the focused one), the AeroSpace mode when it is not the normal one,
+#        the focused app, the next meeting.
+#        With several screens, each bar shows that screen's workspaces.
+# Right: warnings (offline, dotfiles out of sync), Claude agents waiting for you,
+#        GitHub pull requests for you, Slack mentions and DMs, Claude usage, volume,
+#        battery, apps' menu bar icons (e.g. Vorssaint), date and time.
+#        Items that have nothing to say are hidden.
+# Nothing in the middle: the notch would cover it.
+#
+# Mouse: hovering a clickable item highlights it. Popups close when the mouse leaves them.
+#   workspace  click: go there
+#   app name   click: the app's menus (File, Edit, ...), since the macOS menu bar stays hidden
+#   clock      click: today's events
+#   meeting    click: join its video call, or today's events when it has no call link
+#   volume     click: mute, right-click: choose the output, scroll: change the volume
+#   battery    hover: time remaining
+#   claude     hover: each usage limit and when it resets
+#   dotfiles   hover: what is out of sync
+#   slack      click: open Slack
+#   GitHub     click: the pull requests assigned to you or waiting for your review
+#   agents     click: bring Ghostty to the front
+#   app icons  click: the app's own menu (e.g. Vorssaint)
+#
+# Colors come from the active dotfiles theme. Icons are Nerd Font escapes;
+# app icons come from sketchybar-app-font (helpers/icon_map.sh).
+# These scripts use zsh, not bash: macOS's bash 3.2 cannot read $'\u...' escapes.
+
+source "$HOME/.config/dotfiles/theme/sketchybar.sh"
+PLUGINS="$CONFIG_DIR/plugins"
+FONT="JetBrainsMono Nerd Font Mono"   # the same font as Ghostty; text at size 13
+APP_FONT="sketchybar-app-font:Regular:15.0"
+# The Mono Nerd Font squeezes icons into one character width; this size makes the
+# status icons on the right as big as the app icons (e.g. Claude's), 15 points wide.
+STATUS_ICON_FONT="$FONT:Regular:25.0"
+
+# As tall as the MacBook notch area (measured, since it depends on the display resolution).
+# The bar reloads when that changes; see display_watcher at the end of this file.
+BAR_HEIGHT="$("$CONFIG_DIR/helpers/bar_height.sh")"
+
+
+# --- Bar --------------------------------------------------------------------
+
+# topmost=on: the bar stays above the (hidden) macOS menu bar, so clicking the bar
+# works instead of sliding the macOS menu bar down over it. App menus (File, Edit, ...)
+# are still reachable from the keyboard: Cmd+Shift+/ searches them.
+
+sketchybar --bar \
+  position=top \
+  height="$BAR_HEIGHT" \
+  color="$BAR_COLOR" \
+  margin=0 \
+  y_offset=0 \
+  corner_radius=0 \
+  topmost=on \
+  padding_left=12 \
+  padding_right=12
+
+# Defaults for every item: plain text on a rounded background that is transparent
+# until hovered (see helpers/hover.sh), and the style of popup menus.
+# y_offset=1 nudges everything up a point, so the text looks vertically centered.
+sketchybar --default \
+  y_offset=1 \
+  icon.font="$FONT:Regular:15.0" \
+  label.font="$FONT:Regular:13.0" \
+  icon.color="$DIM_COLOR" \
+  label.color="$TEXT_COLOR" \
+  icon.padding_left=8 \
+  icon.padding_right=4 \
+  label.padding_left=0 \
+  label.padding_right=8 \
+  background.drawing=on \
+  background.color="$TRANSPARENT" \
+  background.corner_radius=6 \
+  background.height=24 \
+  padding_left=2 \
+  padding_right=2 \
+  popup.background.color="$POPUP_COLOR" \
+  popup.background.border_color="$POPUP_BORDER_COLOR" \
+  popup.background.border_width=1 \
+  popup.background.corner_radius=9 \
+  popup.blur_radius=30 \
+  popup.y_offset=4
+
+
+# --- Left: workspaces -------------------------------------------------------
+
+# AeroSpace sends these events (see aerospace.toml).
+sketchybar --add event aerospace_workspace_change
+sketchybar --add event aerospace_focus_change
+sketchybar --add event aerospace_mode_change
+
+# The highlight behind the focused workspace. It takes no space in the bar (width=0);
+# plugins/workspaces.sh slides it to the focused workspace and sizes it to fit.
+sketchybar --add item workspace_indicator left \
+  --set workspace_indicator \
+    width=0 \
+    icon=" " \
+    icon.width=0 \
+    icon.padding_left=0 \
+    icon.padding_right=0 \
+    icon.background.drawing=on \
+    icon.background.color="$HIGHLIGHT_COLOR" \
+    icon.background.corner_radius=6 \
+    icon.background.height=24 \
+    label.drawing=off \
+    background.drawing=off \
+    padding_left=0 \
+    padding_right=0
+
+# One item per workspace: the number, then icons of the apps on it. Click to go there.
+for workspace in $(aerospace list-workspaces --all); do
+  sketchybar --add item "workspace.$workspace" left \
+    --set "workspace.$workspace" \
+      icon="$workspace" \
+      icon.font="$FONT:Regular:13.0" \
+      icon.padding_left=8 \
+      label.font="$APP_FONT" \
+      label.padding_right=11 \
+      label.y_offset=-1 \
+      padding_left=1 \
+      padding_right=1 \
+      click_script="aerospace workspace $workspace" \
+      script="$PLUGINS/workspace_hover.sh" \
+    --subscribe "workspace.$workspace" mouse.entered mouse.exited
+done
+
+# An invisible item whose script updates all workspace items at once.
+sketchybar --add item workspaces left \
+  --set workspaces drawing=off script="$PLUGINS/workspaces.sh" \
+  --subscribe workspaces aerospace_workspace_change aerospace_focus_change front_app_switched \
+              display_change system_woke
+
+
+# --- Left: AeroSpace mode, focused app, next meeting ------------------------
+
+# Shown only while AeroSpace is in a mode other than the normal one (e.g. service mode).
+sketchybar --add item mode left \
+  --set mode \
+    drawing=off \
+    icon.drawing=off \
+    label.color="$YELLOW_COLOR" \
+    padding_left=10 \
+    script="$PLUGINS/mode.sh" \
+  --subscribe mode aerospace_mode_change
+
+sketchybar --add item front_app left \
+  --set front_app \
+    icon.drawing=off \
+    label.padding_left=10 \
+    label.padding_right=10 \
+    padding_left=2 \
+    popup.align=left \
+    script="$PLUGINS/front_app.sh" \
+  --subscribe front_app front_app_switched mouse.clicked mouse.entered mouse.exited mouse.exited.global
+
+# The next meeting today, right after the app name. Hidden when there is none.
+sketchybar --add item meeting left \
+  --set meeting \
+    drawing=off \
+    icon=$'\U000f00f0' \
+    icon.font="$STATUS_ICON_FONT" \
+    update_freq=60 \
+    popup.align=left \
+    script="$PLUGINS/meeting.sh" \
+  --subscribe meeting system_woke mouse.clicked mouse.entered mouse.exited mouse.exited.global
+
+
+# --- Right (added right to left) --------------------------------------------
+#
+# Every item has the same spacing (the defaults above): 8 points inside its hover
+# background on each side, like the workspaces on the left. Items with only an icon
+# set icon.padding_right=8 to keep that on both sides.
+# On the far left, the warnings (offline, dotfiles out of sync).
+
+sketchybar --add item clock right \
+  --set clock \
+    icon.drawing=off \
+    label.padding_left=8 \
+    update_freq=60 \
+    popup.align=right \
+    script="$PLUGINS/clock.sh" \
+    click_script="$PLUGINS/calendar.sh" \
+  --subscribe clock system_woke mouse.entered mouse.exited mouse.exited.global
+
+# Apps' own menu bar menus (normally icons on the right of the macOS menu bar, which is
+# hidden under this bar). SketchyBar cannot copy those icons on macOS 26+, so each app
+# gets an item here; clicking it opens the app's real menu (plugins/status_menu.sh).
+# To add an app: one more line, with its process name and a Nerd Font icon.
+add_status_menu() {
+  local app="$1"
+  local icon="$2"
+  sketchybar --add item "status_menu.$app" right \
+    --set "status_menu.$app" \
+      icon="$icon" \
+      icon.font="$STATUS_ICON_FONT" \
+      label.drawing=off \
+      icon.padding_right=8 \
+      script="$CONFIG_DIR/helpers/hover_only.sh" \
+      click_script="$PLUGINS/status_menu.sh $app" \
+    --subscribe "status_menu.$app" mouse.entered mouse.exited
+}
+
+add_status_menu Vorssaint $'\U000f0493'   # cog
+
+# Battery icons are tall (upright batteries), so they get a smaller size to match the others.
+sketchybar --add item battery right \
+  --set battery \
+    icon.font="$FONT:Regular:16.0" \
+    update_freq=120 \
+    popup.align=right \
+    script="$PLUGINS/battery.sh" \
+  --subscribe battery power_source_change system_woke mouse.entered mouse.exited \
+  --add item battery.details popup.battery \
+  --set battery.details icon.drawing=off label.padding_left=10 label.padding_right=10
+
+sketchybar --add item volume right \
+  --set volume \
+    icon.font="$STATUS_ICON_FONT" \
+    popup.align=right \
+    script="$PLUGINS/volume.sh" \
+  --subscribe volume volume_change mouse.clicked mouse.scrolled mouse.entered mouse.exited mouse.exited.global
+
+# How much of the Claude plan's 5-hour session limit is left.
+# Hidden until the first successful check.
+sketchybar --add item claude_usage right \
+  --set claude_usage \
+    drawing=off \
+    icon=":claude:" \
+    icon.font="$APP_FONT" \
+    update_freq=300 \
+    popup.align=right \
+    script="$PLUGINS/claude_usage.sh" \
+  --subscribe claude_usage system_woke mouse.entered mouse.exited
+
+# Shown only while Slack has mentions or direct messages.
+sketchybar --add item slack right \
+  --set slack \
+    drawing=off \
+    icon=$'\U000f04b1' \
+    icon.font="$STATUS_ICON_FONT" \
+    icon.color="$ACCENT_COLOR" \
+    update_freq=10 \
+    script="$PLUGINS/slack.sh" \
+  --subscribe slack mouse.clicked mouse.entered mouse.exited
+
+# Shown only while pull requests on GitHub are assigned to you or wait for your review.
+# This icon is drawn taller than the others, so it gets a smaller size to match.
+sketchybar --add item github right \
+  --set github \
+    drawing=off \
+    icon=$'\U000f04c2' \
+    icon.font="$FONT:Regular:22.0" \
+    update_freq=300 \
+    popup.align=right \
+    script="$PLUGINS/github.sh" \
+  --subscribe github system_woke mouse.clicked mouse.entered mouse.exited mouse.exited.global
+
+# Shown only while Claude Code agents (tracked by workmux) are waiting for you.
+sketchybar --add item agents right \
+  --set agents \
+    drawing=off \
+    icon=$'\U000f06a9' \
+    icon.font="$STATUS_ICON_FONT" \
+    icon.color="$YELLOW_COLOR" \
+    update_freq=5 \
+    script="$PLUGINS/agents.sh" \
+    click_script="open -a Ghostty" \
+  --subscribe agents mouse.entered mouse.exited
+
+# Shown only while the dotfiles repo is out of sync with GitHub (or has uncommitted changes).
+# The popup lines are filled in by plugins/dotfiles.sh.
+sketchybar --add item dotfiles right \
+  --set dotfiles \
+    drawing=off \
+    icon=$'\U000f02a2' \
+    icon.font="$STATUS_ICON_FONT" \
+    icon.color="$YELLOW_COLOR" \
+    label.drawing=off \
+    icon.padding_right=8 \
+    update_freq=120 \
+    popup.align=right \
+    script="$PLUGINS/dotfiles.sh" \
+  --subscribe dotfiles system_woke mouse.entered mouse.exited \
+  --add item dotfiles.changes popup.dotfiles \
+  --add item dotfiles.unpushed popup.dotfiles \
+  --add item dotfiles.behind popup.dotfiles \
+  --set '/dotfiles\..*/' icon.drawing=off label.padding_left=10 label.padding_right=10
+
+# Shown only when there is no network connection.
+sketchybar --add item offline right \
+  --set offline \
+    drawing=off \
+    icon=$'\U000f05aa' \
+    icon.font="$STATUS_ICON_FONT" \
+    icon.color="$RED_COLOR" \
+    label="offline" \
+    label.color="$RED_COLOR" \
+    update_freq=30 \
+    script="$PLUGINS/offline.sh" \
+  --subscribe offline wifi_change system_woke
+
+
+# Reload the whole bar when a display or resolution change gives it a different height.
+sketchybar --add item display_watcher left \
+  --set display_watcher drawing=off script="$PLUGINS/display_change.sh" \
+  --subscribe display_watcher display_change
+
+
+# Draw everything once now, instead of waiting for the first event.
+sketchybar --update

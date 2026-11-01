@@ -1,0 +1,22 @@
+# macOS apps and fonts. Installed after shared/Brewfile by os/macos/install.sh.
+
+# Window management and keyboard
+tap "nikitabobko/tap"
+cask "nikitabobko/tap/aerospace"   # tiling window manager
+cask "karabiner-elements"          # keyboard remapping
+cask "vorssaint"                   # menu bar utilities
+cask "betterdisplay"               # monitor resolutions and scaling
+tap "felixkratz/formulae"
+brew "felixkratz/formulae/sketchybar"   # menu bar replacement (started by AeroSpace)
+brew "ical-buddy"                  # calendar events for SketchyBar
+brew "switchaudio-osx"             # audio output switching for SketchyBar
+
+# Apps
+cask "ghostty"
+cask "zen"                         # Zen Browser
+cask "visual-studio-code"
+cask "claude-code"
+
+# Fonts
+cask "font-jetbrains-mono-nerd-font"
+cask "font-sketchybar-app-font"    # app icons in SketchyBar

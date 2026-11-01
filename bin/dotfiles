@@ -1,0 +1,209 @@
+#!/usr/bin/env bash
+# The dotfiles command: sync this repo with GitHub and apply it to the machine.
+# Run `dotfiles help` for usage.
+
+set -euo pipefail
+
+DOTFILES="${DOTFILES:-$HOME/.dotfiles}"
+source "$DOTFILES/lib/common.sh"
+
+
+usage() {
+  cat <<EOF
+Usage: dotfiles <command>
+
+  install         Apply the repo to this machine (safe to run any time)
+  pull            Get changes from GitHub, then install them
+  push [message]  Commit all changes and push them to GitHub
+  status          Show changes that are not committed or pushed yet
+  upgrade         Upgrade system packages, Homebrew packages, runtimes and plugins
+  theme [name]    Switch theme; without a name, list the themes
+  edit [layer]    Open the repo, or a layer, in \$EDITOR
+
+pull, push and status cover this repo and every layer (~/.dotfiles-<name>).
+
+Repo:   ${DOTFILES/#$HOME/~}
+Layers: $(list_layers | sed "s|^$HOME|~|" | tr '\n' ' ')
+EOF
+}
+
+# This repo first, then every layer.
+all_repos() {
+  echo "$DOTFILES"
+  list_layers
+}
+
+# "dotfiles" for ~/.dotfiles, "dotfiles-cubby" for ~/.dotfiles-cubby: the name on GitHub.
+repo_name() {
+  local repo="$1"
+  local name
+  name="$(basename "$repo")"
+  echo "${name#.}"
+}
+
+# Runs git inside a repo, wherever the command was called from.
+repo_git() {
+  local repo="$1"
+  shift
+  git -C "$repo" "$@"
+}
+
+has_remote() {
+  local repo="$1"
+  [[ -n "$(repo_git "$repo" remote)" ]]
+}
+
+# Runs a script from this machine's OS folder (os/<name>, recorded by the installer)
+# if that OS has one. This is how OS-specific steps hook into the commands below.
+run_os_script() {
+  local script="$OS_LINK/$1"
+  if [[ -x "$script" ]]; then
+    "$script"
+  fi
+}
+
+no_remote_hint() {
+  local repo="$1"
+  warn "No GitHub remote yet. Create one with:"
+  warn "  gh repo create $(repo_name "$repo") --private --source \"$repo\" --push"
+}
+
+
+cmd_install() {
+  "$DOTFILES/install.sh"
+}
+
+cmd_pull() {
+  local repo
+  for repo in $(all_repos); do
+    info "Pulling $(repo_name "$repo")"
+    if has_remote "$repo"; then
+      repo_git "$repo" pull --rebase --autostash
+    else
+      no_remote_hint "$repo"
+    fi
+  done
+  cmd_install
+}
+
+cmd_push() {
+  local message="${1:-Update from $(uname -n)}"
+
+  run_os_script before-commit.sh
+
+  local repo
+  for repo in $(all_repos); do
+    info "$(repo_name "$repo")"
+
+    if [[ -n "$(repo_git "$repo" status --porcelain)" ]]; then
+      repo_git "$repo" status --short
+      repo_git "$repo" add --all
+      repo_git "$repo" commit --quiet -m "$message"
+      ok "Committed: $message"
+    else
+      ok "Nothing to commit"
+    fi
+
+    if has_remote "$repo"; then
+      repo_git "$repo" push --quiet
+      ok "Pushed"
+    else
+      no_remote_hint "$repo"
+    fi
+  done
+}
+
+cmd_status() {
+  run_os_script before-commit.sh
+
+  local repo
+  for repo in $(all_repos); do
+    info "$(repo_name "$repo")"
+    show_repo_status "$repo"
+  done
+}
+
+show_repo_status() {
+  local repo="$1"
+  local uncommitted unpushed=""
+
+  uncommitted="$(repo_git "$repo" status --short)"
+  if [[ -n "$uncommitted" ]]; then
+    echo "  Not committed:"
+    echo "$uncommitted"
+  fi
+
+  if has_remote "$repo"; then
+    repo_git "$repo" fetch --quiet
+    unpushed="$(repo_git "$repo" log --oneline '@{upstream}..HEAD' 2>/dev/null || true)"
+    if [[ -n "$unpushed" ]]; then
+      echo "  Not pushed:"
+      echo "$unpushed"
+    fi
+  fi
+
+  if [[ -z "$uncommitted" && -z "$unpushed" ]]; then
+    ok "Up to date"
+  fi
+}
+
+cmd_upgrade() {
+  [[ -L "$OS_LINK" ]] || die "Run 'dotfiles install' first."
+  run_os_script upgrade.sh
+}
+
+cmd_theme() {
+  local name="${1:-}"
+
+  if [[ -z "$name" ]]; then
+    local active theme
+    active="$(current_theme)"
+    for theme in $(list_themes); do
+      if [[ "$theme" == "$active" ]]; then
+        echo "* $theme"
+      else
+        echo "  $theme"
+      fi
+    done
+    return 0
+  fi
+
+  set_theme "$name"
+  echo "Open terminals pick up the new colors after a Ghostty config reload (Cmd+Shift+, on macOS, Ctrl+Shift+, on Linux)."
+}
+
+cmd_edit() {
+  local layer="${1:-}"
+  local repo="$DOTFILES"
+
+  if [[ -n "$layer" ]]; then
+    repo="$LAYER_PREFIX$layer"
+    [[ -d "$repo" ]] || die "No layer '$layer'. Layers: $(list_layers | tr '\n' ' ')"
+  fi
+
+  cd "$repo"
+  "${EDITOR:-nvim}" .
+}
+
+
+main() {
+  local command="${1:-help}"
+  shift || true
+
+  case "$command" in
+    install) cmd_install ;;
+    pull)    cmd_pull ;;
+    push)    cmd_push "$@" ;;
+    status)  cmd_status ;;
+    upgrade) cmd_upgrade ;;
+    theme)   cmd_theme "$@" ;;
+    edit)    cmd_edit "$@" ;;
+    help | -h | --help) usage ;;
+    *)
+      usage
+      exit 1
+      ;;
+  esac
+}
+
+main "$@"

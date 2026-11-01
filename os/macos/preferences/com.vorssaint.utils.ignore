@@ -1,0 +1,16 @@
+# Vorssaint keys that are usage history or window state, not settings.
+# Left out of the repo by `dotfiles push` / `dotfiles status` (see os/macos/settings.sh).
+
+# Command Bar history: which apps and actions were opened, and when
+commandBarQueryHabits
+commandBarQueryHabitKey
+commandBarUsage
+
+# Window sizes and "what's new" markers
+settingsWindowHeight
+settingsWindowWidth
+panelControlWindowsExpanded
+lastUpdateIntroVersion
+supportUpdateIntroVersion
+updateHighlightsSeenVersion
+brightnessUpdatePromptState

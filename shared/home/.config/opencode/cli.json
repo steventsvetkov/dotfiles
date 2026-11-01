@@ -1,0 +1,63 @@
+{
+  "$schema": "https://opencode.ai/v2/cli.json",
+  "theme": {
+    "name": "system",
+    "mode": "dark"
+  },
+  "cursor": {
+    "style": "line",
+    "blinking": false
+  },
+  "tabs": {
+    "mode": "off",
+    "layout": "horizontal",
+    "indicators": "status",
+    "scope": "cwd"
+  },
+  "session": {
+    "sidebar": "hide",
+    "verbosity": "low",
+    "thinking": "hide",
+    "markdown": "rendered",
+    "grouping": "auto",
+    "scrollbar": false,
+    "tps": true,
+    "permissions": "prompt"
+  },
+  "diffs": {
+    "view": "auto",
+    "tree": true
+  },
+  "prompt": {
+    "paste": "compact"
+  },
+  "animations": true,
+  "highlights": false,
+  "attention": {
+    "notifications": true,
+    "sound": true,
+    "volume": 0.4
+  },
+  "terminal": {
+    "title": true,
+    "copy": "select"
+  },
+  "mouse": true,
+  "scroll": {
+    "acceleration": true
+  },
+  "keybinds": {
+    "session.interrupt": "escape,ctrl+c",
+    "app.exit": "ctrl+d,<leader>q",
+    "session.background": "<leader>z"
+  },
+  "plugins": [
+    {
+      "package": "github:neoscaler/opencode-ai-usagebar#28c9fa307e974136c9e2f06aaf0b26754918f2ca",
+      "options": {
+        "interval": 300,
+        "providers": ["anthropic"]
+      }
+    }
+  ]
+}

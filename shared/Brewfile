@@ -1,0 +1,40 @@
+# Command line tools for every OS (Homebrew runs on macOS and Linux).
+# Installed by `dotfiles install`, upgraded by `dotfiles upgrade`.
+# OS-specific apps are in os/<name>/Brewfile (macOS) or the OS's package list (Linux).
+# Language runtimes (node, python, ...) are managed by mise: shared/home/.config/mise/config.toml
+
+# Shell (zsh itself comes from the OS)
+brew "starship"
+brew "zsh-autosuggestions"
+brew "zsh-fast-syntax-highlighting"
+brew "zsh-completions"
+brew "fzf-tab"
+
+# Everyday command line tools
+brew "git"
+brew "gh"
+brew "fzf"
+brew "zoxide"
+brew "eza"
+brew "bat"
+brew "git-delta"
+brew "ripgrep"
+brew "fd"
+brew "jq"
+
+# Terminal apps
+brew "neovim"
+brew "lazygit"
+brew "btop"
+brew "yazi"
+brew "fastfetch"
+brew "tmux"
+brew "sesh"          # tmux session picker (with zoxide and fzf)
+brew "workmux"       # git worktree + tmux window per branch, agent dashboard
+
+# Language runtime manager
+brew "mise"
+
+# AI coding agents (Claude Code: os/macos/Brewfile, or its installer on Linux)
+brew "opencode"
+brew "github-mcp-server"   # GitHub tools for AI agents, signed in through gh

@@ -1,0 +1,25 @@
+# workmux: a git worktree + tmux window per branch, each with its own AI agent.
+# Docs: `workmux docs` or https://workmux.raine.dev
+# Projects can override any of this in a .workmux.yaml in the repo.
+
+agent: claude
+nerdfont: true
+
+# Our tmux.conf already shows the status icons (see window-status-format),
+# so workmux must not rewrite tmux's window format.
+status_format: false
+
+# Nerd Font icons shown after the window name in tmux.
+status_icons:
+  working: "\uf110"   # spinner
+  waiting: "\uf075"   # speech bubble: the agent needs input
+  done: "\uf00c"      # check mark
+
+# Agent sidebar (prefix + A in tmux): like herdr's left panel, agents grouped under
+# their project, one card per worktree with its status, git changes and PR checks.
+# Press t in the sidebar to switch grouping off and on.
+sidebar:
+  position: left
+  width: 44
+  layout: tiles
+  group_by: project

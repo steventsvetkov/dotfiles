@@ -1,0 +1,60 @@
+# Git settings shared by every machine.
+# Name and email are per machine, in ~/.config/git/local (not committed; created by install.sh).
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = true
+
+[push]
+	autoSetupRemote = true
+
+[fetch]
+	prune = true
+
+[rebase]
+	autoStash = true
+
+[merge]
+	conflictStyle = zdiff3
+
+[diff]
+	algorithm = histogram
+	colorMoved = default
+
+# Sign with SSH keys instead of GPG. Which key, and whether to sign, is set per machine in
+# ~/.config/git/local (by install.sh, from the key `gh auth login` creates).
+[gpg]
+	format = ssh
+
+# Lets git check signatures itself (git log --show-signature). Written by install.sh.
+[gpg "ssh"]
+	allowedSignersFile = ~/.config/git/allowed_signers
+
+# Use the GitHub CLI's login for github.com, so no separate tokens or SSH keys are needed.
+[credential "https://github.com"]
+	helper =
+	helper = !gh auth git-credential
+
+# Pretty diffs with delta. Syntax colors come from the active dotfiles theme (bat's "current").
+[core]
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	line-numbers = true
+	syntax-theme = current
+
+# Per-machine settings: name, email, signing key.
+[include]
+	path = ~/.config/git/local
+
+# Work repos in ~/source/cubby commit with the work email, from the cubby layer
+# (~/.dotfiles-cubby). After the machine settings, so it wins there. Git skips the
+# include on machines without that layer.
+[includeIf "gitdir:~/source/cubby/"]
+	path = ~/.config/git/cubby

@@ -1,0 +1,7 @@
+# lazygit: https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+# Colors come from the terminal, so they follow the active dotfiles theme.
+
+gui:
+  nerdFontsVersion: "3"
+  border: rounded
+  showRandomTip: false

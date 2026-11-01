@@ -1,0 +1,14 @@
+# Installed with pacman by os/arch/install.sh. Everything else comes from shared/Brewfile.
+
+# What Homebrew needs to work
+base-devel
+procps-ng
+curl
+file
+git
+
+# zsh from pacman, so it is a normal system shell that can be the login shell
+zsh
+
+# Terminal
+ghostty

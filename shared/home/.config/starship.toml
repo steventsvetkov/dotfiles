@@ -1,0 +1,85 @@
+"$schema" = "https://starship.rs/config-schema.json"
+
+# Prompt layout:
+#
+#   ~/code/project  main !1 ?2                     node 22.11  took 3s
+#   ❯
+#
+# Colors are terminal color names (blue, purple, ...), never hex codes,
+# so the prompt follows the active dotfiles theme.
+#
+# Icons are Nerd Font code points written as escapes (\ue725 etc.),
+# because the glyphs themselves are invisible in editors without a Nerd Font.
+
+add_newline = true
+
+format = """
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$fill\
+$nodejs\
+$python\
+$golang\
+$rust\
+$cmd_duration\
+$line_break\
+$character"""
+
+[fill]
+symbol = " "
+
+[hostname]
+ssh_only = true
+format = "[$hostname]($style) "
+style = "bold yellow"
+
+[directory]
+style = "bold blue"
+truncation_length = 3
+truncate_to_repo = true
+read_only = " \U000f033e"
+
+[git_branch]
+symbol = "\ue725 "
+format = "[$symbol$branch]($style) "
+style = "purple"
+
+[git_state]
+style = "bold yellow"
+
+[git_status]
+format = "([$all_status$ahead_behind]($style) )"
+style = "yellow"
+
+[nodejs]
+symbol = "\ue718 "
+format = "[$symbol$version]($style) "
+style = "green"
+
+[python]
+symbol = "\ue73c "
+format = "[$symbol$version( \\($virtualenv\\))]($style) "
+style = "yellow"
+
+[golang]
+symbol = "\ue627 "
+format = "[$symbol$version]($style) "
+style = "cyan"
+
+[rust]
+symbol = "\U000f1617 "
+format = "[$symbol$version]($style) "
+style = "red"
+
+[cmd_duration]
+min_time = 2000
+format = "[\U000f0954 $duration]($style) "
+style = "bright-black"
+
+[character]
+success_symbol = "[❯](bold purple)"
+error_symbol = "[❯](bold red)"
+vimcmd_symbol = "[❮](bold green)"

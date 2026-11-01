@@ -1,0 +1,82 @@
+// OpenCode server settings: https://opencode.ai/v2/docs/config/
+// Terminal look and keys are in cli.json. Shared agent instructions are in AGENTS.md.
+// Log in to model providers with: opencode auth login
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  // Homebrew installs and upgrades OpenCode (`dotfiles upgrade`), so it should not update itself.
+  "update": "disable",
+
+  // Never upload sessions to OpenCode's share service; they may contain work code.
+  "share": "disabled",
+
+  // Ask before commands that are hard to undo. Everything else follows OpenCode's defaults.
+  "permissions": [
+    { "action": "shell", "resource": "git push *", "effect": "ask" },
+    { "action": "shell", "resource": "git reset --hard*", "effect": "ask" },
+    { "action": "shell", "resource": "rm -rf *", "effect": "ask" },
+    { "action": "shell", "resource": "sudo *", "effect": "ask" }
+  ],
+
+  // Skills shared with Claude Code: anything added there works here too.
+  "skills": ["~/.config/claude/skills"],
+
+  "agents": {
+    // A second opinion that can look at everything but change nothing. Use with @reviewer.
+    "reviewer": {
+      "description": "Reviews changes for bugs, security issues and missing tests, without editing files",
+      "mode": "subagent",
+      "system": "You review code changes. Focus on correctness, security, readability and missing tests. Point to exact files and lines. Never edit files.",
+      "permissions": [
+        { "action": "edit", "resource": "*", "effect": "deny" }
+      ]
+    }
+  },
+
+  // Slash commands: /review, /commit, /pr
+  "commands": {
+    "review": {
+      "description": "Review the current changes",
+      "subtask": true,
+      "agent": "reviewer",
+      "template": "Review the uncommitted changes and the commits on this branch that are not on the main branch. List real problems first (bugs, security, missing tests), then smaller suggestions."
+    },
+    "commit": {
+      "description": "Commit the current changes with a clear message",
+      "template": "Look at the staged and unstaged changes, stage what belongs together, and commit it with a short, clear commit message in the style of this repository's history. Do not push."
+    },
+    "pr": {
+      "description": "Open a GitHub pull request for this branch",
+      "template": "Push this branch and open a GitHub pull request with `gh pr create`. Write a clear title and a description of what changed and why, based on the commits on this branch."
+    }
+  },
+
+  "mcp": {
+    "servers": {
+      // Up-to-date documentation for libraries and frameworks, so the model does not guess APIs.
+      "context7": {
+        "type": "remote",
+        "url": "https://mcp.context7.com/mcp"
+      },
+      // A browser the agent can drive, to check web pages and UIs. Node comes from mise.
+      "playwright": {
+        "type": "local",
+        "command": ["mise", "exec", "node@lts", "--", "npx", "-y", "@playwright/mcp@latest"]
+      },
+
+      // GitHub: repos, issues, pull requests, Actions. GitHub's hosted server only allows
+      // browser sign-in from apps it knows, so this runs GitHub's own server locally
+      // (Homebrew) and gives it the token of your existing `gh auth login`.
+      "github": {
+        "type": "local",
+        "command": [
+          "sh", "-c",
+          "GITHUB_PERSONAL_ACCESS_TOKEN=\"$(gh auth token)\" exec github-mcp-server stdio --toolsets=default,actions"
+        ]
+      }
+
+      // Work tools (Linear, Sentry, ...) come from layers, in an opencode.jsonc in the
+      // work folder, so they only load in work projects. See "Layers" in AGENTS.md.
+    }
+  }
+}

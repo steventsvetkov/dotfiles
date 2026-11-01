@@ -1,0 +1,11 @@
+# Installed with apt by os/ubuntu/install.sh. Everything else comes from shared/Brewfile.
+
+# What Homebrew needs to work
+build-essential
+procps
+curl
+file
+git
+
+# zsh from apt, so it is a normal system shell that can be the login shell
+zsh

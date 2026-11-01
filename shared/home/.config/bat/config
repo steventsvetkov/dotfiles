@@ -1,0 +1,4 @@
+# bat: https://github.com/sharkdp/bat
+# "current" is the active dotfiles theme, linked into ~/.config/bat/themes.
+--theme="current"
+--style="numbers,changes,header"

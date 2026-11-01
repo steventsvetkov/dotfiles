@@ -1,0 +1,12 @@
+# Language runtimes, and tools that Homebrew does not have, available everywhere.
+# Installed by `dotfiles install`. A project can pin its own versions in a mise.toml in its folder.
+
+[tools]
+node = "lts"
+python = "latest"
+
+# AI plan usage and quotas, read by OpenCode's ai-usagebar plugin (see opencode/cli.json)
+# and by SketchyBar's Claude usage item on macOS.
+# Not in Homebrew; mise downloads the release from GitHub. Claude works with Claude Code's
+# login; `ai-usagebar vendors` lists the other providers and what each needs.
+"github:akitaonrails/ai-usagebar" = "latest"

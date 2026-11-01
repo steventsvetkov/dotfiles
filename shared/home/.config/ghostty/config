@@ -1,0 +1,30 @@
+# Ghostty terminal: https://ghostty.org/docs/config
+# Reload after editing: Cmd+Shift+, (macOS) or Ctrl+Shift+, (Linux).
+# See every option with: ghostty +show-config --default --docs
+
+# Colors come from the active dotfiles theme (`dotfiles theme`), linked to themes/current.
+theme = current
+
+# Font
+font-family = JetBrainsMono Nerd Font Mono
+font-size = 13
+adjust-cell-height = 10%
+
+# Window
+# Padding: x is left/right, y is top,bottom. Balance is off so these exact values are used
+# (balance would center the text and even out top and bottom); leftover pixels, when the
+# window is not an exact number of rows/columns, go to the bottom/right.
+window-padding-x = 16,14
+window-padding-y = 16,7
+window-padding-balance = false
+background-opacity = 0.85
+unfocused-split-opacity = 0.85
+
+# Cursor and mouse
+cursor-style = bar
+cursor-style-blink = false
+shell-integration-features = no-cursor
+mouse-hide-while-typing = true
+
+# OS-specific settings, from os/<name>/home. The ? means: skip if the file does not exist.
+config-file = ?os
