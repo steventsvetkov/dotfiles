@@ -1,6 +1,11 @@
 # Language runtimes, and tools that Homebrew does not have, available everywhere.
 # Installed by `dotfiles install`. A project can pin its own versions in a mise.toml in its folder.
 
+[settings]
+# Many projects pin Node in a .node-version or .nvmrc file instead of a mise.toml. Use those too,
+# so `node` is the project's version inside the project.
+idiomatic_version_file_enable_tools = ["node"]
+
 [tools]
 node = "lts"
 python = "latest"

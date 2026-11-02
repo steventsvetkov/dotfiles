@@ -1,8 +1,19 @@
-# workmux: a git worktree + tmux window per branch, each with its own AI agent.
+# workmux: a git worktree + tmux session per branch, each with its own AI agent.
 # Docs: `workmux docs` or https://workmux.raine.dev
 # Projects can override any of this in a .workmux.yaml in the repo.
 
-agent: claude
+agent: opencode
+
+# Each worktree gets its own tmux session, so it can hold several windows. A project
+# can add more in its .workmux.yaml, e.g. a window running its dev servers.
+mode: session
+windows:
+  - name: agent
+    panes:
+      - command: <agent>
+        focus: true
+  - name: shell
+
 nerdfont: true
 
 # Our tmux.conf already shows the status icons (see window-status-format),

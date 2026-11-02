@@ -70,8 +70,8 @@ dotfiles edit       open this repo (or a layer: dotfiles edit cubby) in your edi
 - **A clean home folder.** Settings live in `~/.config`, never loose in `~`.
 - **Safe to rerun.** Nothing is overwritten without a backup.
 
-Machine-specific settings and secrets stay out of the repo, in `~/.config/zsh/local.zsh`
-and `~/.config/git/local`.
+Machine-specific settings and secrets stay out of the repo, in `~/.config/zsh/local.zsh`,
+`~/.config/zsh/local.zshenv` and `~/.config/git/local`.
 
 ## Layers
 

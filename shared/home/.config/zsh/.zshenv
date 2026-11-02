@@ -33,3 +33,12 @@ export VISUAL="$EDITOR"
 # Environment variables for this OS only, from os/<name>/home.
 
 source "$ZDOTDIR/os-env.zsh"
+
+
+# --- Secrets ----------------------------------------------------------------
+# API keys and tokens for this machine, in every zsh (so scripts and agents see them too).
+# Not in the repo.
+
+if [[ -f "$ZDOTDIR/local.zshenv" ]]; then
+  source "$ZDOTDIR/local.zshenv"
+fi

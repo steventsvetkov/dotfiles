@@ -1,8 +1,24 @@
-// The terminal side of auto review: the /auto command switches it for the current session, and
-// the prompt footer shows whether it is on.
+// The terminal side of auto review: the /auto command switches it for the current session,
+// the prompt footer shows whether it is on, and flagged actions show why they need approval.
 import { Plugin } from "@opencode/plugin/tui"
-import { createEffect, createSignal } from "solid-js"
+import { createEffect, createSignal, For } from "solid-js"
 import { AutoReview, type SessionState } from "./rpc"
+
+// The server part starts every message it attaches to a permission request with this.
+const MESSAGE_PREFIX = "Auto review"
+
+type FlaggedRequest = { sessionID: string; message: string }
+
+// Splits the server's message ("Auto review: <reason>", or "Auto review failed, ...: <error>")
+// into a heading and the reason itself.
+function describe(message: string): { title: string; reason: string } {
+  const separator = message.indexOf(":")
+  const reason = separator === -1 ? message : message.slice(separator + 1).trim()
+  if (message.startsWith(`${MESSAGE_PREFIX} failed`)) {
+    return { title: "Auto review could not check this action", reason }
+  }
+  return { title: "Auto review flagged this action", reason }
+}
 
 export default Plugin.define({
   id: "auto-review.tui",
@@ -48,6 +64,31 @@ export default Plugin.define({
     // Another terminal may switch the same session.
     const stopListening = autoReview.events.on("changed", (event) => remember(event.data as SessionState))
 
+    // OpenCode's permission prompt shows the command but not the reason the server part gives,
+    // so the reason is shown above the prompt until the request is answered.
+    const [flagged, setFlagged] = createSignal<Record<string, FlaggedRequest>>({})
+
+    const stopAsked = context.data.on("permission.asked", (event) => {
+      const { id, sessionID, message } = event.data
+      if (!message?.startsWith(MESSAGE_PREFIX)) return
+
+      setFlagged((previous) => ({ ...previous, [id]: { sessionID, message } }))
+    })
+
+    const stopReplied = context.data.on("permission.replied", (event) => {
+      setFlagged((previous) => {
+        const remaining = { ...previous }
+        delete remaining[event.data.requestID]
+        return remaining
+      })
+    })
+
+    // Requests from the open session and its subagents.
+    function flaggedInCurrentSession(): FlaggedRequest[] {
+      const mainSession = currentMainSession()
+      return Object.values(flagged()).filter((request) => context.data.session.root(request.sessionID) === mainSession)
+    }
+
     context.keymap.layer(() => ({
       mode: "global",
       commands: [
@@ -84,9 +125,36 @@ export default Plugin.define({
       },
     })
 
+    // A panel with a yellow bar on the left, like OpenCode's own notices.
+    const removeReasons = context.ui.slot({
+      append: "session.composer.top",
+      render: () => (
+        <For each={flaggedInCurrentSession()}>
+          {(request) => {
+            const { title, reason } = describe(request.message)
+            return (
+              <box
+                border={["left"]}
+                borderColor={context.theme.text.feedback.warning.base}
+                paddingLeft={1}
+                marginBottom={1}
+              >
+                <text fg={context.theme.text.feedback.warning.base}>⚠ {title}</text>
+                <text fg={context.theme.text.base}>{reason}</text>
+                <text fg={context.theme.text.muted}>Approve or reject it below.</text>
+              </box>
+            )
+          }}
+        </For>
+      ),
+    })
+
     return () => {
       stopListening()
+      stopAsked()
+      stopReplied()
       removeIndicator()
+      removeReasons()
     }
   },
 })

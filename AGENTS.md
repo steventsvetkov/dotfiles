@@ -66,7 +66,8 @@ Each layer has its own AGENTS.md.
 
 Things that are not committed:
 - `~/.config/git/local`: git name and email for this machine
-- `~/.config/zsh/local.zsh`: machine-specific shell settings and secrets
+- `~/.config/zsh/local.zsh`: machine-specific shell settings (interactive shells)
+- `~/.config/zsh/local.zshenv`: secrets (API keys, tokens), loaded by every zsh
 
 ## Rules
 
