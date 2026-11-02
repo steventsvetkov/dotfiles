@@ -25,7 +25,9 @@ export LESSHISTFILE="$XDG_STATE_HOME/less/history"
 
 # --- Editor -----------------------------------------------------------------
 
-export EDITOR="nvim"
+# VS Code for now (nvim later). --wait makes `code` return only when the file's tab is
+# closed, so git commit messages and other "edit this, then continue" prompts work.
+export EDITOR="code --wait"
 export VISUAL="$EDITOR"
 
 

@@ -31,28 +31,38 @@ focused="${FOCUSED_WORKSPACE:-$(aerospace list-workspaces --focused)}"
 # SketchyBar cannot place an item at a given position, so the highlight is an item that
 # takes no space in the bar (workspace_indicator, width=0) and draws its icon background
 # further right: padding_left moves it to the workspace, icon.width makes it as wide.
+#
+# Positions are read per bar ("display-1", "display-2"): SketchyBar reports one rectangle
+# for each screen, and an item that is not drawn on a screen gets x = -9999 there.
 move_indicator() {
   # Where the focused workspace is, e.g. "display-1 61 43": its bar, x position and width.
-  local target=($(sketchybar --query "workspace.$focused" \
-    | jq -r '.bounding_rects | to_entries[0] | "\(.key) \(.value.origin[0]) \(.value.size[0])"'))
+  local target=($(sketchybar --query "workspace.$focused" | jq -r '.bounding_rects | to_entries
+    | map(select(.value.origin[0] > -9999))[0] // empty
+    | "\(.key) \(.value.origin[0]) \(.value.size[0])"'))
+  [[ -n "$target" ]] || return 0   # not drawn yet
   local target_bar="${target[1]}"
   local target_x="${target[2]%.*}"
   local target_width="${target[3]%.*}"
 
-  # Where the highlight is now, and where it would be without its padding.
-  local indicator=($(sketchybar --query workspace_indicator \
-    | jq -r '"\(.bounding_rects | to_entries[0] | "\(.key) \(.value.origin[0])") \(.geometry.padding_left)"'))
-  local indicator_bar="${indicator[1]}"
-  local left_edge=$(( ${indicator[2]%.*} - indicator[3] ))
+  # The bar the highlight is drawn on now, if it is on exactly one.
+  local indicator_bar="$(sketchybar --query workspace_indicator | jq -r '.bounding_rects | to_entries
+    | map(select(.value.origin[0] > -9999)) | if length == 1 then .[0].key else "" end')"
 
-  local position=(padding_left=$(( target_x - left_edge )) icon.width="$target_width")
-
-  if [[ "$indicator_bar" == "$target_bar" ]]; then
-    sketchybar --animate sin 10 --set workspace_indicator "${position[@]}"
-  else
-    # On another screen: jump there instead of sliding across.
-    sketchybar --set workspace_indicator display="${target_bar#display-}" "${position[@]}"
+  # On another screen (or on all of them, before the first run): move it to the focused
+  # workspace's bar first, without sliding across.
+  local animate=(--animate sin 10)
+  if [[ "$indicator_bar" != "$target_bar" ]]; then
+    sketchybar --set workspace_indicator display="${target_bar#display-}"
+    animate=()
   fi
+
+  # Where the highlight would be on that bar without its padding.
+  local indicator=($(sketchybar --query workspace_indicator | jq -r --arg bar "$target_bar" \
+    '"\(.bounding_rects[$bar].origin[0]) \(.geometry.padding_left)"'))
+  local left_edge=$(( ${indicator[1]%.*} - indicator[2] ))
+
+  sketchybar "${animate[@]}" --set workspace_indicator \
+    padding_left=$(( target_x - left_edge )) icon.width="$target_width"
 }
 
 

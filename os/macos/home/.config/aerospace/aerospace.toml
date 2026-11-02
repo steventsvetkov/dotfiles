@@ -12,8 +12,8 @@ config-version = 2
 
 start-at-login = true
 
-# Workspaces 1-9 always exist, even when empty.
-persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+# Workspaces 1-9 and 0 always exist, even when empty.
+persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
 
 # Gaps between windows and around the screen edge.
 gaps.inner.horizontal = 10
@@ -41,9 +41,25 @@ exec-on-workspace-change = [
 on-focus-changed = ["exec-and-forget sketchybar --trigger aerospace_focus_change"]
 
 
+# With an external monitor: 1-5 on the external monitor, 6-0 on the MacBook screen.
+# With only the MacBook screen, all of them are on it. "^(?!built-in)" matches any monitor
+# whose name does not start with "Built-in" (patterns are case-insensitive regexes); when
+# there is none, the next pattern, "built-in", is used.
+[workspace-to-monitor-force-assignment]
+1 = ["^(?!built-in)", "built-in"]
+2 = ["^(?!built-in)", "built-in"]
+3 = ["^(?!built-in)", "built-in"]
+4 = ["^(?!built-in)", "built-in"]
+5 = ["^(?!built-in)", "built-in"]
+6 = "built-in"
+7 = "built-in"
+8 = "built-in"
+9 = "built-in"
+0 = "built-in"
+
 [mode.main.binding]
 
-# Workspaces: Cmd+1-9 to go there, Cmd+Shift+1-9 to move the window there (and follow it).
+# Workspaces: Cmd+1-9/0 to go there, Cmd+Shift+1-9/0 to move the window there (and follow it).
 ctrl-alt-cmd-1 = "workspace 1"
 ctrl-alt-cmd-2 = "workspace 2"
 ctrl-alt-cmd-3 = "workspace 3"
@@ -53,6 +69,7 @@ ctrl-alt-cmd-6 = "workspace 6"
 ctrl-alt-cmd-7 = "workspace 7"
 ctrl-alt-cmd-8 = "workspace 8"
 ctrl-alt-cmd-9 = "workspace 9"
+ctrl-alt-cmd-0 = "workspace 0"
 
 ctrl-alt-cmd-shift-1 = "move-node-to-workspace 1 --focus-follows-window"
 ctrl-alt-cmd-shift-2 = "move-node-to-workspace 2 --focus-follows-window"
@@ -63,6 +80,7 @@ ctrl-alt-cmd-shift-6 = "move-node-to-workspace 6 --focus-follows-window"
 ctrl-alt-cmd-shift-7 = "move-node-to-workspace 7 --focus-follows-window"
 ctrl-alt-cmd-shift-8 = "move-node-to-workspace 8 --focus-follows-window"
 ctrl-alt-cmd-shift-9 = "move-node-to-workspace 9 --focus-follows-window"
+ctrl-alt-cmd-shift-0 = "move-node-to-workspace 0 --focus-follows-window"
 
 # Focus: Cmd+arrows. Move the window: Cmd+Shift+arrows.
 ctrl-alt-cmd-left = "focus left"

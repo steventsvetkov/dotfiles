@@ -182,7 +182,8 @@ cmd_edit() {
   fi
 
   cd "$repo"
-  "${EDITOR:-nvim}" .
+  # Unquoted on purpose: $EDITOR can hold a command with options, like "code --wait".
+  ${EDITOR:-nvim} .
 }
 
 

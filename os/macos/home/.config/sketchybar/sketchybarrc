@@ -121,7 +121,12 @@ sketchybar --add item workspace_indicator left \
     padding_right=0
 
 # One item per workspace: the number, then icons of the apps on it. Click to go there.
-for workspace in $(aerospace list-workspaces --all); do
+# In keyboard order, 1 to 9 then 0 (AeroSpace lists 0 first).
+workspaces=($(aerospace list-workspaces --all))
+if (( ${workspaces[(Ie)0]} )); then
+  workspaces=(${workspaces:#0} 0)
+fi
+for workspace in $workspaces; do
   sketchybar --add item "workspace.$workspace" left \
     --set "workspace.$workspace" \
       icon="$workspace" \
@@ -278,7 +283,7 @@ sketchybar --add item github right \
     script="$PLUGINS/github.sh" \
   --subscribe github system_woke mouse.clicked mouse.entered mouse.exited mouse.exited.global
 
-# Shown only while Claude Code agents (tracked by workmux) are waiting for you.
+# Shown only while AI agents (tracked by workmux) are waiting for you, flashing yellow.
 sketchybar --add item agents right \
   --set agents \
     drawing=off \

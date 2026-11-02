@@ -6,6 +6,8 @@
 	<true/>
 	<key>audioPriorityDeviceNames</key>
 	<dict>
+		<key>1E6D2878-0000-0000-0323-0104B5502178</key>
+		<string>LG ULTRAWIDE</string>
 		<key>BuiltInMicrophoneDevice</key>
 		<string>MacBook Air Microphone</string>
 		<key>BuiltInSpeakerDevice</key>
@@ -22,6 +24,7 @@
 	<key>audioPriorityOutputUIDs</key>
 	<array>
 		<string>BuiltInSpeakerDevice</string>
+		<string>1E6D2878-0000-0000-0323-0104B5502178</string>
 	</array>
 	<key>autoQuitEnabled</key>
 	<true/>
@@ -31,6 +34,10 @@
 	<false/>
 	<key>brightnessControlEnabled</key>
 	<true/>
+	<key>brightnessDDCWriteOnlyPaths</key>
+	<array>
+		<string>7789:30760:21413|IOService:/AppleARMPE/arm-io@10F00000/AppleSoCIO/dispext0@F4000000/IOMobileFramebufferShim</string>
+	</array>
 	<key>brightnessDDCWriteOnlyPathsRechecked</key>
 	<true/>
 	<key>brightnessKeysEnabled</key>
@@ -275,6 +282,12 @@
 	<true/>
 	<key>notchCalendarEnabled</key>
 	<true/>
+	<key>notchCapsuleFitDrop</key>
+	<real>6</real>
+	<key>notchCapsuleFitHeight</key>
+	<real>4</real>
+	<key>notchCapsuleFitWidth</key>
+	<real>0.0</real>
 	<key>notchCommandBar</key>
 	<true/>
 	<key>notchCommandBarStyle</key>
@@ -313,10 +326,14 @@
 	<true/>
 	<key>notchOpenOnHover</key>
 	<false/>
+	<key>notchOutlineEnabled</key>
+	<false/>
 	<key>notchQueueEnabled</key>
 	<true/>
 	<key>notchScratchpadControlHidden</key>
 	<true/>
+	<key>notchSilhouette</key>
+	<string>capsule</string>
 	<key>notchSize</key>
 	<string>spacious</string>
 	<key>notchTimerEnabled</key>
