@@ -1,6 +1,6 @@
 #!/bin/zsh
-# Shows the next meeting today, e.g. "Standup in 12m" or "Planning at 15:30",
-# from the macOS calendars (via icalBuddy). Hidden when there are no more meetings today.
+# Shows the next meeting when it starts within the hour, e.g. "Standup in 12m", or "Standup now"
+# while it runs, from the macOS calendars (via icalBuddy). Hidden the rest of the time.
 # The icon is a camera when the meeting has a video call link (Zoom, Google Meet, Teams).
 # Run by SketchyBar every minute, and every second while it flashes (see the end).
 # Click: join the video call, or open today's events (plugins/calendar.sh) without a link.
@@ -54,22 +54,26 @@ times="${next_event%%$'\t'*}"     # "14:30 - 15:00"
 title="${next_event#*$'\t'}"      # "Standup"
 start="${times%% - *}"            # "14:30"
 
-# Long titles are shortened, so the bar stays tidy.
-if (( ${#title} > 24 )); then
-  title="${title[1,23]}…"
-fi
-
 now=$(date +%s)
 seconds_until=$(( $(date -j -f '%H:%M:%S' "$start:00" +%s) - now ))
 # Rounded up, so it says "in 1m" until it starts, not "now".
 minutes_until=$(( (seconds_until + 59) / 60 ))
 
+# More than an hour away: nothing to show yet. Checked again every minute.
+if (( minutes_until > 60 )); then
+  sketchybar --set "$NAME" drawing=off update_freq=60
+  exit 0
+fi
+
+# Long titles are shortened, so the bar stays tidy.
+if (( ${#title} > 24 )); then
+  title="${title[1,23]}…"
+fi
+
 if (( minutes_until <= 0 )); then
   label="$title now"
-elif (( minutes_until < 60 )); then
-  label="$title in ${minutes_until}m"
 else
-  label="$title at $start"
+  label="$title in ${minutes_until}m"
 fi
 
 # Yellow when it starts within 10 minutes, red within 5 (or once it has started).

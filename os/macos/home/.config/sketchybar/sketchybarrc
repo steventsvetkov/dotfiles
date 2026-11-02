@@ -11,7 +11,7 @@
 #
 # Left:  AeroSpace workspaces with icons of their apps (empty ones hidden, a highlight
 #        sliding to the focused one), the AeroSpace mode when it is not the normal one,
-#        the focused app, the next meeting.
+#        the focused app, the next meeting (within the hour).
 #        With several screens, each bar shows that screen's workspaces.
 # Right: warnings (offline, dotfiles out of sync), Claude agents waiting for you,
 #        GitHub pull requests for you, Slack mentions and DMs, Claude usage, volume,
@@ -165,7 +165,7 @@ sketchybar --add item front_app left \
     script="$PLUGINS/front_app.sh" \
   --subscribe front_app front_app_switched mouse.clicked mouse.entered mouse.exited mouse.exited.global
 
-# The next meeting today, right after the app name. Hidden when there is none.
+# The next meeting, right after the app name, once it starts within the hour. Hidden otherwise.
 sketchybar --add item meeting left \
   --set meeting \
     drawing=off \
