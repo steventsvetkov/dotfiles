@@ -8,9 +8,9 @@ and a joy to use every single day.
 
 <br>
 
-![macOS](https://img.shields.io/badge/macOS-1c1c1c?style=for-the-badge&logo=apple&logoColor=cdd6f4)
-![Ubuntu](https://img.shields.io/badge/Ubuntu_&_WSL-1c1c1c?style=for-the-badge&logo=ubuntu&logoColor=fab387)
 ![Arch](https://img.shields.io/badge/Arch_·_Omarchy-1c1c1c?style=for-the-badge&logo=archlinux&logoColor=89b4fa)
+![Ubuntu](https://img.shields.io/badge/Ubuntu_&_WSL-1c1c1c?style=for-the-badge&logo=ubuntu&logoColor=fab387)
+![macOS](https://img.shields.io/badge/macOS-1c1c1c?style=for-the-badge&logo=apple&logoColor=cdd6f4)
 
 </div>
 

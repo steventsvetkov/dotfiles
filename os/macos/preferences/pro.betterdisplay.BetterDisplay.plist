@@ -259,9 +259,9 @@
 	<key>value@blueLight-EnvironmentController</key>
 	<real>0.5</real>
 	<key>value@combinedBrightness-CombinedController@Display:2</key>
-	<real>0.87762665206735779</real>
+	<real>0.86768265565236413</real>
 	<key>value@hardwareBrightness-AppleController@Display:2</key>
-	<real>0.8339923620223999</real>
+	<real>0.82534110546112061</real>
 	<key>value@softwareBrightness-ColorController@Display:2</key>
 	<real>1</real>
 	<key>virtualScreenLinked@Display:2</key>
