@@ -7,14 +7,14 @@
 # space the notch does not already take:
 #
 #   [1 terminal] 2 browser  SERVICE  Ghostty  Standup in 12m
-#       (off) offline  (git)  (agents) 2  (PR) 1  (slack) 3  (claude) 96%  (vol) 45%  (bat) 80%  (app icons)  Thu 30 Oct 14:05
+#       (off) offline  (git)  (agents) 2  (PR) 1  (slack) 3  (codex) 98%  (claude) 96%  (vol) 45%  (bat) 80%  (app icons)  Thu 30 Oct 14:05
 #
 # Left:  AeroSpace workspaces with icons of their apps (empty ones hidden, a highlight
 #        sliding to the focused one), the AeroSpace mode when it is not the normal one,
 #        the focused app, the next meeting (within the hour).
 #        With several screens, each bar shows that screen's workspaces.
 # Right: warnings (offline, dotfiles out of sync), Claude agents waiting for you,
-#        GitHub pull requests for you, Slack mentions and DMs, Claude usage, volume,
+#        GitHub pull requests for you, Slack mentions and DMs, Codex and Claude usage, volume,
 #        battery, apps' menu bar icons (e.g. Vorssaint), date and time.
 #        Items that have nothing to say are hidden.
 # Nothing in the middle: the notch would cover it.
@@ -27,6 +27,7 @@
 #   volume     click: mute, right-click: choose the output, scroll: change the volume
 #   battery    hover: time remaining
 #   claude     hover: each usage limit and when it resets
+#   codex      hover: the same for the ChatGPT plan's Codex limits
 #   dotfiles   hover: what is out of sync
 #   slack      click: open Slack
 #   GitHub     click: the pull requests assigned to you or waiting for your review
@@ -232,8 +233,8 @@ sketchybar --add item volume right \
     script="$PLUGINS/volume.sh" \
   --subscribe volume volume_change mouse.clicked mouse.scrolled mouse.entered mouse.exited mouse.exited.global
 
-# How much of the Claude plan's 5-hour session limit is left.
-# Hidden until the first successful check.
+# How much of the Claude plan's 5-hour session limit is left, then the same for Codex
+# (the ChatGPT plan). Each is hidden until its first successful check.
 sketchybar --add item claude_usage right \
   --set claude_usage \
     drawing=off \
@@ -241,8 +242,18 @@ sketchybar --add item claude_usage right \
     icon.font="$APP_FONT" \
     update_freq=300 \
     popup.align=right \
-    script="$PLUGINS/claude_usage.sh" \
+    script="$PLUGINS/ai_usage.sh anthropic Session" \
   --subscribe claude_usage system_woke mouse.entered mouse.exited
+
+sketchybar --add item codex_usage right \
+  --set codex_usage \
+    drawing=off \
+    icon=":codex:" \
+    icon.font="$APP_FONT" \
+    update_freq=300 \
+    popup.align=right \
+    script="$PLUGINS/ai_usage.sh openai 'Codex 5h'" \
+  --subscribe codex_usage system_woke mouse.entered mouse.exited
 
 # Shown only while Slack has mentions or direct messages.
 sketchybar --add item slack right \
