@@ -240,6 +240,8 @@
 	<true/>
 	<key>linearScrollEnabled</key>
 	<true/>
+	<key>linearScrollLines</key>
+	<integer>2</integer>
 	<key>liquidGlassEnabled</key>
 	<true/>
 	<key>menuBarMetricAppearance</key>
@@ -356,6 +358,8 @@
 	<true/>
 	<key>restoredScreenCaptureShortcutsMigrated</key>
 	<true/>
+	<key>screenshotLoupeLastZoom</key>
+	<real>1</real>
 	<key>scrollInverterEnabled</key>
 	<true/>
 	<key>scrollInverterHorizontalEnabled</key>
@@ -365,7 +369,9 @@
 	W10=
 	</data>
 	<key>smoothScrollEnabled</key>
-	<true/>
+	<false/>
+	<key>smoothScrollStep</key>
+	<integer>30</integer>
 	<key>soundOutputSwitcherEnabled</key>
 	<true/>
 	<key>switcherPreviewExcludedApps</key>

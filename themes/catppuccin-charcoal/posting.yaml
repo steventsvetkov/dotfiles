@@ -1,0 +1,32 @@
+# Catppuccin Charcoal for Posting (an HTTP client in the terminal): the same colors as Ghostty.
+# Linked into ~/.local/share/posting/themes by `dotfiles theme`; config.yaml picks it by name.
+name: dotfiles
+
+primary: '#89b4fa'     # blue: buttons, fixed table columns
+secondary: '#cba6f7'   # mauve: method selector, minor labels
+accent: '#89b4fa'      # blue: header text, scrollbars, cursors, focus (like the focused tmux window)
+background: '#101010'  # base
+surface: '#1e1e1e'     # surface0: panels
+error: '#f38ba8'       # red
+success: '#a6e3a1'     # green
+warning: '#f9e2af'     # yellow
+
+text_area:
+  cursor: 'reverse'
+  selection: 'on #323232'      # surface2, like Ghostty's selection
+url:
+  base: '#cdd6f4'
+  protocol: '#6c7086'          # overlay0
+syntax:
+  json_key: '#89b4fa'
+  json_string: '#a6e3a1'
+  json_number: '#fab387'       # peach
+  json_boolean: '#fab387'
+  json_null: '#6c7086'
+
+method:
+  get: '#89b4fa'
+  post: '#a6e3a1'
+  put: '#f9e2af'
+  patch: '#94e2d5'             # teal
+  delete: '#f38ba8'

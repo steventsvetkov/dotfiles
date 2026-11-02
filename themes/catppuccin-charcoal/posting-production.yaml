@@ -1,0 +1,25 @@
+# The dotfiles theme for Posting, with red where it is normally blue: used when sending requests
+# to production (a layer's Posting launcher picks it), so it never looks like local or a preview.
+name: dotfiles-production
+
+primary: '#f38ba8'     # red: buttons, fixed table columns
+secondary: '#fab387'   # peach: method selector, minor labels
+accent: '#f38ba8'      # red: header text, scrollbars, cursors, focus
+background: '#101010'
+surface: '#1e1e1e'
+error: '#f38ba8'
+success: '#a6e3a1'
+warning: '#f9e2af'
+
+text_area:
+  cursor: 'reverse'
+  selection: 'on #323232'
+url:
+  base: '#cdd6f4'
+  protocol: '#6c7086'
+syntax:
+  json_key: '#89b4fa'
+  json_string: '#a6e3a1'
+  json_number: '#fab387'
+  json_boolean: '#fab387'
+  json_null: '#6c7086'

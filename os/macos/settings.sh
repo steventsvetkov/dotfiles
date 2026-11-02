@@ -49,6 +49,12 @@ apply_macos_settings() {
   fi
   write_macos_default NSGlobalDomain SLSMenuBarUseBlurredAppearance -bool true || true
 
+  # F1-F12 send F keys, like on a PC keyboard; Fn+F1-F12 gives brightness, volume and so on.
+  # Karabiner follows this setting too. activateSettings applies it without logging out.
+  if write_macos_default NSGlobalDomain com.apple.keyboard.fnState -bool true; then
+    /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
+  fi
+
   # Turn off "Displays have separate Spaces" (recommended by AeroSpace).
   if write_macos_default com.apple.spaces spans-displays -bool true; then
     warn "Log out and back in for the Spaces setting to take effect."

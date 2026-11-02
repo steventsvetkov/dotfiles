@@ -24,23 +24,33 @@
 	<false/>
 	<key>airPlay@Display:3</key>
 	<false/>
+	<key>airPlay@Display:4</key>
+	<false/>
 	<key>appAlreadyLaunched</key>
 	<true/>
 	<key>appDisconnected@Display:2</key>
 	<false/>
 	<key>appDisconnected@Display:3</key>
 	<false/>
+	<key>appDisconnected@Display:4</key>
+	<false/>
 	<key>appleCapable@Display:2</key>
 	<true/>
 	<key>appleCapable@Display:3</key>
+	<false/>
+	<key>appleCapable@Display:4</key>
 	<false/>
 	<key>appleMade@Display:2</key>
 	<true/>
 	<key>appleMade@Display:3</key>
 	<false/>
+	<key>appleMade@Display:4</key>
+	<false/>
 	<key>appleVisionPro@Display:2</key>
 	<false/>
 	<key>appleVisionPro@Display:3</key>
+	<false/>
+	<key>appleVisionPro@Display:4</key>
 	<false/>
 	<key>buildNumber</key>
 	<integer>54014</integer>
@@ -48,76 +58,108 @@
 	<true/>
 	<key>builtIn@Display:3</key>
 	<false/>
+	<key>builtIn@Display:4</key>
+	<false/>
 	<key>canChangeOrientation@Display:2</key>
 	<true/>
 	<key>canChangeOrientation@Display:3</key>
+	<true/>
+	<key>canChangeOrientation@Display:4</key>
 	<true/>
 	<key>colorProfilesSupported@Display:2</key>
 	<true/>
 	<key>colorProfilesSupported@Display:3</key>
 	<true/>
+	<key>colorProfilesSupported@Display:4</key>
+	<true/>
 	<key>colorTableCapable@Display:2</key>
 	<true/>
 	<key>colorTableCapable@Display:3</key>
 	<true/>
+	<key>colorTableCapable@Display:4</key>
+	<false/>
 	<key>configuredPotentialEDR@Display:2</key>
 	<real>2</real>
 	<key>configuredPotentialEDR@Display:3</key>
+	<real>1</real>
+	<key>configuredPotentialEDR@Display:4</key>
 	<real>1</real>
 	<key>configuredReferenceEDR@Display:2</key>
 	<real>1</real>
 	<key>configuredReferenceEDR@Display:3</key>
 	<real>1</real>
+	<key>configuredReferenceEDR@Display:4</key>
+	<real>1</real>
 	<key>connected@Display:2</key>
 	<false/>
 	<key>connected@Display:3</key>
 	<true/>
+	<key>connected@Display:4</key>
+	<false/>
 	<key>currentColorProfileURL@Display:2</key>
 	<string>file:///Library/ColorSync/Profiles/Displays/Color%20LCD-37D8832A-2D66-02CA-B9F7-8F30A301B230.icc</string>
 	<key>currentColorProfileURL@Display:3</key>
 	<string>file:///Library/ColorSync/Profiles/Displays/LG%20ULTRAWIDE-7452C81D-C8B4-47B8-B9A0-8A0CEB1D17B5.icc</string>
 	<key>ddcConfigurationNoticeDismissed@Display:2</key>
 	<true/>
+	<key>ddcConfigurationNoticeDismissed@Display:4</key>
+	<true/>
 	<key>defaultBitsPerSample@Display:2</key>
 	<integer>10</integer>
 	<key>defaultBitsPerSample@Display:3</key>
 	<integer>10</integer>
+	<key>defaultBitsPerSample@Display:4</key>
+	<integer>8</integer>
 	<key>defaultHeight@Display:2</key>
 	<integer>832</integer>
 	<key>defaultHeight@Display:3</key>
 	<integer>1440</integer>
+	<key>defaultHeight@Display:4</key>
+	<integer>1080</integer>
 	<key>defaultIsHiDPI@Display:2</key>
 	<true/>
 	<key>defaultIsHiDPI@Display:3</key>
+	<false/>
+	<key>defaultIsHiDPI@Display:4</key>
 	<false/>
 	<key>defaultModeNumber@Display:2</key>
 	<integer>122</integer>
 	<key>defaultModeNumber@Display:3</key>
 	<integer>28</integer>
+	<key>defaultModeNumber@Display:4</key>
+	<integer>0</integer>
 	<key>defaultRefreshRate@Display:2</key>
 	<integer>60</integer>
 	<key>defaultRefreshRate@Display:3</key>
 	<integer>100</integer>
+	<key>defaultRefreshRate@Display:4</key>
+	<integer>60</integer>
 	<key>defaultRefreshString@Display:2</key>
 	<string>60Hz</string>
 	<key>defaultRefreshString@Display:3</key>
 	<string>100Hz</string>
+	<key>defaultRefreshString@Display:4</key>
+	<string>60Hz</string>
 	<key>defaultWidth@Display:2</key>
 	<integer>1280</integer>
 	<key>defaultWidth@Display:3</key>
 	<integer>3440</integer>
+	<key>defaultWidth@Display:4</key>
+	<integer>1920</integer>
 	<key>displayConfigurationId</key>
-	<integer>28</integer>
+	<integer>40</integer>
 	<key>displayConfigurationId@Display:2</key>
-	<integer>28</integer>
+	<integer>31</integer>
 	<key>displayConfigurationId@Display:3</key>
-	<integer>28</integer>
+	<integer>40</integer>
+	<key>displayConfigurationId@Display:4</key>
+	<integer>40</integer>
 	<key>displayIsTV_overrideUndo@v1552m41059</key>
 	<integer>0</integer>
 	<key>displayName_overrideUndo@v1552m41059</key>
 	<string></string>
 	<key>displayTagIDs</key>
-	<string>[2,3]</string>
+	<string>[2,3,4]</string>
 	<key>factoryColorProfileURL@Display:2</key>
 	<string>file:///Library/ColorSync/Profiles/Displays/Color%20LCD-37D8832A-2D66-02CA-B9F7-8F30A301B230.icc</string>
 	<key>factoryColorProfileURL@Display:3</key>
@@ -126,44 +168,68 @@
 	<real>815154317.88902497</real>
 	<key>firstAdded@Display:3</key>
 	<real>815298512.71712899</real>
+	<key>firstAdded@Display:4</key>
+	<real>815311067.33692098</real>
 	<key>hasAutoBrightness@Display:2</key>
 	<true/>
 	<key>hasAutoBrightness@Display:3</key>
+	<false/>
+	<key>hasAutoBrightness@Display:4</key>
 	<false/>
 	<key>hasHDR@Display:2</key>
 	<false/>
 	<key>hasHDR@Display:3</key>
 	<true/>
+	<key>hasHDR@Display:4</key>
+	<false/>
 	<key>hasHiDPI@Display:2</key>
 	<true/>
 	<key>hasHiDPI@Display:3</key>
 	<true/>
+	<key>hasHiDPI@Display:4</key>
+	<false/>
 	<key>hasNotch@Display:2</key>
 	<true/>
 	<key>hasNotch@Display:3</key>
+	<false/>
+	<key>hasNotch@Display:4</key>
 	<false/>
 	<key>hasUnderscanSupport@Display:2</key>
 	<false/>
 	<key>hasUnderscanSupport@Display:3</key>
 	<false/>
+	<key>hasUnderscanSupport@Display:4</key>
+	<false/>
 	<key>heightMillimeters@Display:2</key>
 	<real>188.68571145193917</real>
 	<key>heightMillimeters@Display:3</key>
 	<real>329.51350856471709</real>
+	<key>heightMillimeters@Display:4</key>
+	<real>380.9999942779541</real>
+	<key>identificationMethod@Display:4</key>
+	<string>vendorModelSerial</string>
 	<key>intelEDIDOverride_overrideUndo@v1552m41059</key>
 	<false/>
 	<key>isUnavailable@hardwareAmbientLight-AmbientLightController@Display:2</key>
 	<true/>
 	<key>isUnavailable@hardwareAmbientLight-AmbientLightController@Display:3</key>
 	<true/>
+	<key>isUnavailable@hardwareAmbientLight-AmbientLightController@Display:4</key>
+	<true/>
 	<key>isUnavailable@hardwareAmbientLight-EnvironmentController</key>
 	<true/>
 	<key>lastConnected@Display:2</key>
-	<real>815299291.05321503</real>
+	<real>815302792.12808299</real>
 	<key>lastConnected@Display:3</key>
-	<real>815299522.19819999</real>
+	<real>815324473.84290504</real>
+	<key>lastConnected@Display:4</key>
+	<real>815324473.12907195</real>
 	<key>lastUnseen@Display:2</key>
-	<real>815299522.27323306</real>
+	<real>815305222.39679205</real>
+	<key>lastUnseen@Display:3</key>
+	<real>815324473.18408501</real>
+	<key>lastUnseen@Display:4</key>
+	<real>815324473.93758905</real>
 	<key>manualResolutionList_overrideUndo@v1552m41059</key>
 	<string>[]</string>
 	<key>manualResolutions@v1552m41059</key>
@@ -248,18 +314,26 @@
 	<string>Color LCD</string>
 	<key>name@Display:3</key>
 	<string>LG ULTRAWIDE</string>
+	<key>name@Display:4</key>
+	<string>Generic Display</string>
 	<key>nativeHeight@Display:2</key>
 	<integer>1664</integer>
 	<key>nativeHeight@Display:3</key>
 	<integer>1440</integer>
+	<key>nativeHeight@Display:4</key>
+	<integer>1080</integer>
 	<key>nativeModeNumber@Display:2</key>
 	<integer>384</integer>
 	<key>nativeModeNumber@Display:3</key>
 	<integer>28</integer>
+	<key>nativeModeNumber@Display:4</key>
+	<integer>0</integer>
 	<key>nativeWidth@Display:2</key>
 	<integer>2560</integer>
 	<key>nativeWidth@Display:3</key>
 	<integer>3440</integer>
+	<key>nativeWidth@Display:4</key>
+	<integer>1920</integer>
 	<key>nitsHDRMaxAvgReported@Display:3</key>
 	<real>300</real>
 	<key>nitsHDRMinReported@Display:3</key>
@@ -270,6 +344,8 @@
 	<false/>
 	<key>nonAppleRealDisplay@Display:3</key>
 	<true/>
+	<key>nonAppleRealDisplay@Display:4</key>
+	<false/>
 	<key>onboardingMenuIcon</key>
 	<false/>
 	<key>onboardingSettingsIcon</key>
@@ -278,6 +354,8 @@
 	<true/>
 	<key>overrideCapable@Display:3</key>
 	<true/>
+	<key>overrideCapable@Display:4</key>
+	<false/>
 	<key>overrideDefaultResolutionHiDPI_overrideUndo@v1552m41059</key>
 	<true/>
 	<key>overrideDefaultResolution_overrideUndo@v1552m41059</key>
@@ -304,6 +382,8 @@
 	<string>1</string>
 	<key>persistedDisplayID@Display:3</key>
 	<string>2</string>
+	<key>persistedDisplayID@Display:4</key>
+	<string>16</string>
 	<key>pro.betterdisplay.BetterDisplay.PrivilegedHelper.registrationConfiguration</key>
 	<string>privileged-helper-registration-v3:RvSlvN8onAr09hLa3wdDO+3VE2Icbk2J1SDvcuFiaPA=</string>
 	<key>settingsDisplayPaneSelectedTagID</key>
@@ -318,6 +398,8 @@
 	<false/>
 	<key>sidecar@Display:3</key>
 	<false/>
+	<key>sidecar@Display:4</key>
+	<false/>
 	<key>smoothSaclingCustomize_overrideUndo@v1552m41059</key>
 	<false/>
 	<key>smoothScaling@v1552m41059</key>
@@ -327,43 +409,57 @@
 	<key>storedIdentifiers@Display:2</key>
 	<string>[{"productName":"Color LCD","ioDisplayLocation":"IOService:\/AppleARMPE\/arm-io@10F00000\/AppleSoCIO\/disp0@74000000\/IOMobileFramebufferShim","systemUUID":"37D8832A-2D66-02CA-B9F7-8F30A301B230","infoDictionarySerial":4251086178,"infoDictionaryVendorNumber":1552,"modelNumber":41059,"edidProductName":"Color LCD","serial":4251086178,"vendorNumber":1552,"infoDictionaryModelNumber":41059}]</string>
 	<key>storedIdentifiers@Display:3</key>
-	<string>[{"ioDisplayLocation":"IOService:\/AppleARMPE\/arm-io@10F00000\/AppleSoCIO\/dispext0@F4000000\/IOMobileFramebufferShim","edidProductName":"LG ULTRAWIDE","modelNumber":30760,"portID":16,"edidData":"AP\/\/\/\/\/\/\/wAebSh4pVMAAAMjAQS1UCF4\/mkFrk5MqScKUFQhCADRwGFAAQEBAQEBAQEBAQEBSNVwsNCgRlAwIDoAIE4xAAAaAAAA\/QAwZEaaOgAKICAgICAgAAAA\/ABMRyBVTFRSQVdJREUKAAAA\/wA1MDNOVEtGME00MTMKATICAx9yIwkHB0QQBAMBgwEAAOMFwADiAGrmBgUBU1MufX1wsNCgKVAwIDoAIE4xAAAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUA==","productName":"LG ULTRAWIDE","systemUUID":"7452C81D-C8B4-47B8-B9A0-8A0CEB1D17B5","weekOfManufacture":3,"yearOfManufacture":2025,"infoDictionarySerial":21413,"infoDictionaryVendorNumber":7789,"alphanumericSerialNumber":"503NTKF0M413","vendorNumber":7789,"infoDictionaryModelNumber":30760,"serial":21413}]</string>
+	<string>[{"infoDictionarySerial":21413,"yearOfManufacture":2025,"ioDisplayLocation":"IOService:\/AppleARMPE\/arm-io@10F00000\/AppleSoCIO\/dispext0@F4000000\/IOMobileFramebufferShim","modelNumber":30760,"productName":"LG ULTRAWIDE","infoDictionaryVendorNumber":7789,"weekOfManufacture":3,"serial":21413,"alphanumericSerialNumber":"503NTKF0M413","vendorNumber":7789,"infoDictionaryModelNumber":30760,"edidData":"AP\/\/\/\/\/\/\/wAebSh4pVMAAAMjAQS1UCF4\/mkFrk5MqScKUFQhCADRwGFAAQEBAQEBAQEBAQEBSNVwsNCgRlAwIDoAIE4xAAAaAAAA\/QAwZEaaOgAKICAgICAgAAAA\/ABMRyBVTFRSQVdJREUKAAAA\/wA1MDNOVEtGME00MTMKATICAx9yIwkHB0QQBAMBgwEAAOMFwADiAGrmBgUBU1MufX1wsNCgKVAwIDoAIE4xAAAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUA==","portID":16,"systemUUID":"7452C81D-C8B4-47B8-B9A0-8A0CEB1D17B5","edidProductName":"LG ULTRAWIDE"}]</string>
+	<key>storedIdentifiers@Display:4</key>
+	<string>[{"productName":"Generic Display","systemUUID":"BBFA5E28-9C45-4917-AC2C-2E065D5D7A79","yearOfManufacture":0,"infoDictionarySerial":0,"infoDictionaryVendorNumber":1970170734,"modelNumber":1986622068,"weekOfManufacture":0,"vendorNumber":1970170734,"serial":0,"infoDictionaryModelNumber":1986622068}]</string>
 	<key>supportsHDR@Display:2</key>
 	<false/>
 	<key>supportsHDR@Display:3</key>
 	<true/>
+	<key>supportsHDR@Display:4</key>
+	<false/>
 	<key>systemVirtual@Display:2</key>
 	<false/>
 	<key>systemVirtual@Display:3</key>
 	<false/>
+	<key>systemVirtual@Display:4</key>
+	<true/>
 	<key>tagIDCounter</key>
-	<integer>3</integer>
+	<integer>4</integer>
 	<key>thirdPartyVirtual@Display:2</key>
 	<false/>
 	<key>thirdPartyVirtual@Display:3</key>
 	<false/>
+	<key>thirdPartyVirtual@Display:4</key>
+	<true/>
 	<key>tv@Display:2</key>
 	<false/>
 	<key>tv@Display:3</key>
+	<false/>
+	<key>tv@Display:4</key>
 	<false/>
 	<key>unknownDisplay@Display:2</key>
 	<false/>
 	<key>unknownDisplay@Display:3</key>
 	<false/>
+	<key>unknownDisplay@Display:4</key>
+	<true/>
 	<key>uuid@Display:0</key>
 	<integer>0</integer>
 	<key>uuid@Display:2</key>
 	<integer>2</integer>
 	<key>uuid@Display:3</key>
 	<integer>3</integer>
+	<key>uuid@Display:4</key>
+	<integer>4</integer>
 	<key>uuid@DisplayGroup:-1001</key>
 	<integer>-1001</integer>
 	<key>value@blueLight-EnvironmentController</key>
 	<real>0.5</real>
 	<key>value@combinedBrightness-CombinedController@Display:2</key>
-	<real>0.99773642330458667</real>
+	<real>0.99767862486116821</real>
 	<key>value@hardwareBrightness-AppleController@Display:2</key>
-	<real>0.99701207876205444</real>
+	<real>0.99986445903778076</real>
 	<key>value@softwareBrightness-ColorController@Display:2</key>
 	<real>1</real>
 	<key>value@softwareBrightness-ColorController@Display:3</key>
@@ -372,13 +468,19 @@
 	<false/>
 	<key>virtualScreenLinked@Display:3</key>
 	<false/>
+	<key>virtualScreenLinked@Display:4</key>
+	<false/>
 	<key>widthMillimeters@Display:2</key>
 	<real>290.28570992606029</real>
 	<key>widthMillimeters@Display:3</key>
 	<real>801.61466686003791</real>
+	<key>widthMillimeters@Display:4</key>
+	<real>677.33332316080737</real>
 	<key>xdrPresetsSupported@Display:2</key>
 	<false/>
 	<key>xdrPresetsSupported@Display:3</key>
+	<false/>
+	<key>xdrPresetsSupported@Display:4</key>
 	<false/>
 </dict>
 </plist>

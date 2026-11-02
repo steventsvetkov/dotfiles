@@ -16,6 +16,9 @@
 // Approved commands are tagged: their result's metadata gets `autoReview` with the reason the
 // model gave. The terminal UI lists this turn's approvals above the prompt.
 import { Plugin } from "@opencode/plugin"
+import { existsSync, readdirSync, readFileSync } from "node:fs"
+import { homedir } from "node:os"
+import { join } from "node:path"
 import { AutoReview } from "./rpc"
 
 // Runs through the Claude subscription. Haiku answers in about two seconds.
@@ -45,6 +48,65 @@ const UNREVIEWED_ACTIONS = new Set([
   // Code Mode itself; the tools it calls are checked one by one.
   "execute",
 ])
+
+function isUnreviewed(action: string): boolean {
+  return UNREVIEWED_ACTIONS.has(action)
+}
+
+// --- Playwright (a test browser) ------------------------------------------------------------
+// Reviewing every click made browser testing slow, so Playwright actions skip the model.
+// Instead, every web address an action would open (a page to go to, or URLs in code it runs in
+// the page) must be on an allowed host; anything else asks you first. Actions without an
+// address (clicks, typing, screenshots) work on the page that is already open.
+//
+// Allowed: localhost and 127.0.0.1, plus the hosts listed in the files of
+// ~/.config/opencode/auto-review/browser-hosts/ (one per line, "*.example.dev" for subdomains),
+// which dotfiles layers add for their own sites.
+const BROWSER_HOSTS_FOLDER = join(homedir(), ".config/opencode/auto-review/browser-hosts")
+const ALWAYS_ALLOWED_HOSTS = ["localhost", "127.0.0.1", "[::1]", "*.localhost"]
+
+function isPlaywright(action: string): boolean {
+  return action.startsWith("playwright_")
+}
+
+function allowedBrowserHosts(): string[] {
+  const hosts = [...ALWAYS_ALLOWED_HOSTS]
+  if (!existsSync(BROWSER_HOSTS_FOLDER)) return hosts
+  for (const file of readdirSync(BROWSER_HOSTS_FOLDER)) {
+    const lines = readFileSync(join(BROWSER_HOSTS_FOLDER, file), "utf8").split("\n")
+    for (const line of lines) {
+      const host = line.replace(/#.*/, "").trim()
+      if (host) hosts.push(host)
+    }
+  }
+  return hosts
+}
+
+// "*.example.dev" matches any subdomain of example.dev; anything else matches exactly.
+function hostIsAllowed(host: string, allowed: string[]): boolean {
+  return allowed.some((pattern) =>
+    pattern.startsWith("*.") ? host.endsWith(pattern.slice(1)) : host === pattern,
+  )
+}
+
+// Web addresses in a Playwright action's arguments, e.g. its url, or page.goto('...') in code.
+function urlsIn(input: unknown): string[] {
+  return JSON.stringify(input ?? {}).match(/https?:\/\/[^\s"'`)\\]+/g) ?? []
+}
+
+// The addresses an action would open that are not on an allowed host.
+function disallowedUrls(input: unknown): string[] {
+  const allowed = allowedBrowserHosts()
+  return urlsIn(input).filter((url) => {
+    let host: string
+    try {
+      host = new URL(url).hostname
+    } catch {
+      return true // not a valid address: ask, to be safe
+    }
+    return !hostIsAllowed(host, allowed)
+  })
+}
 
 const MAX_USER_MESSAGES = 10
 const MAX_MESSAGE_LENGTH = 2000
@@ -143,7 +205,16 @@ export default Plugin.define({
 
     await ctx.permission.hook("evaluate", async (event) => {
       if (event.effect !== "allow") return
-      if (UNREVIEWED_ACTIONS.has(event.action)) return
+      if (isUnreviewed(event.action)) return
+
+      if (isPlaywright(event.action)) {
+        const outside = disallowedUrls(event.metadata?.input)
+        if (outside.length) {
+          event.effect = "ask"
+          event.message = `Auto review: the test browser would open ${outside.join(", ")}, outside the allowed sites`
+        }
+        return
+      }
 
       const key = [event.sessionID, event.action, ...event.resources].join("\n")
 

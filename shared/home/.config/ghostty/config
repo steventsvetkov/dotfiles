@@ -26,5 +26,11 @@ cursor-style-blink = false
 shell-integration-features = no-cursor
 mouse-hide-while-typing = true
 
+# Keys
+# Ctrl+Shift+P would arrive as plain Ctrl+P (terminals send the same byte for both), so it is
+# sent as an extended key code instead: ESC [ 112 ; 6 u (112 is "p", 6 is Ctrl+Shift). Apps
+# can then bind it, e.g. Posting's command palette (inside tmux, see `posting` in aliases.zsh).
+keybind = ctrl+shift+p=text:\x1b[112;6u
+
 # OS-specific settings, from os/<name>/home. The ? means: skip if the file does not exist.
 config-file = ?os

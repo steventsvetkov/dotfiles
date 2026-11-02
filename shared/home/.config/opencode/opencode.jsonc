@@ -18,6 +18,12 @@
     { "action": "shell", "resource": "sudo *", "effect": "ask" }
   ],
 
+  // Experimental features. They may change or disappear in any release.
+  "experimental": {
+    // Artifacts. Missing from the docs, but listed in the schema (opencode.ai/config.json).
+    "artifacts": true
+  },
+
   // Skills shared with Claude Code: anything added there works here too.
   "skills": ["~/.config/claude/skills"],
 
@@ -59,9 +65,14 @@
         "url": "https://mcp.context7.com/mcp"
       },
       // A browser the agent can drive, to check web pages and UIs. Node comes from mise.
+      // Short timeouts: a click on an element that isn't there fails after 5 seconds (default
+      // 30), a page load after 15 (default 60), so a wrong guess costs little.
       "playwright": {
         "type": "local",
-        "command": ["mise", "exec", "node@lts", "--", "npx", "-y", "@playwright/mcp@latest"]
+        "command": [
+          "mise", "exec", "node@lts", "--", "npx", "-y", "@playwright/mcp@latest",
+          "--timeout-action", "5000", "--timeout-navigation", "15000"
+        ]
       },
 
       // GitHub: repos, issues, pull requests, Actions. GitHub's hosted server only allows

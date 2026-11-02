@@ -178,6 +178,8 @@ set_theme() {
   link_file "$THEME_LINK/ghostty"     "$HOME/.config/ghostty/themes/current"
   link_file "$THEME_LINK/bat.tmTheme" "$HOME/.config/bat/themes/current.tmTheme"
   link_file "$THEME_LINK/btop.theme"  "$HOME/.config/btop/themes/current.theme"
+  link_file "$THEME_LINK/posting.yaml" "$HOME/.local/share/posting/themes/current.yaml"
+  link_file "$THEME_LINK/posting-production.yaml" "$HOME/.local/share/posting/themes/current-production.yaml"
 
   # bat (and delta, which uses bat's themes) only sees new themes after a cache rebuild.
   if command -v bat >/dev/null; then

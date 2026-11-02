@@ -27,6 +27,7 @@ brew "neovim"
 brew "lazygit"
 brew "btop"
 brew "yazi"
+brew "posting"       # HTTP client in the terminal (an alternative to Postman)
 brew "fastfetch"
 brew "tmux"
 brew "sesh"          # tmux session picker (with zoxide and fzf)

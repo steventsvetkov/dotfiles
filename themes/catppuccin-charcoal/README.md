@@ -26,6 +26,8 @@ Two changes to the terminal palette (`ghostty`), compared with official Catppucc
 | `bat.tmTheme` | bat, and git diffs through delta                               |
 | `btop.theme`  | btop                                                           |
 | `sketchybar.sh` | SketchyBar (macOS menu bar)                                  |
+| `posting.yaml` | Posting (HTTP client)                                         |
+| `posting-production.yaml` | Posting, for production requests (red instead of blue) |
 
 `bat.tmTheme` and `btop.theme` are the official Catppuccin files with the colors in the
 table above swapped. To change the background, replace the hex value in every file here.

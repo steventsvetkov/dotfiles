@@ -32,3 +32,18 @@ y() {
   fi
   rm -f -- "$cwd_file"
 }
+
+# Posting (HTTP client), able to tell Ctrl+Shift+P (commands) from Ctrl+P (find a request).
+# Inside tmux, both arrive as Ctrl+P unless the program asks tmux for "mode 2" extended keys,
+# which Posting doesn't do itself. So ask for it while Posting runs, and switch back after.
+posting() {
+  if [[ -n "$TMUX" ]]; then
+    printf '\e[>4;2m'
+  fi
+  command posting "$@"
+  local exit_code=$?
+  if [[ -n "$TMUX" ]]; then
+    printf '\e[>4m'
+  fi
+  return $exit_code
+}

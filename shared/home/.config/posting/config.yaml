@@ -1,0 +1,10 @@
+# Posting (an HTTP client in the terminal): https://posting.sh
+# The theme follows the dotfiles theme, like Ghostty: themes/<name>/posting.yaml, named "dotfiles".
+theme: dotfiles
+
+# Like VS Code: Ctrl+P finds a request by name, Ctrl+Shift+P opens the command palette.
+# (Posting has them the other way round.) Ctrl+Shift+P only reaches Posting as its own key
+# because tmux passes extended keys through (see tmux.conf).
+keymap:
+  search-requests: ctrl+p
+  commands: ctrl+P,ctrl+shift+p
