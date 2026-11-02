@@ -50,14 +50,5 @@
     "session.interrupt": "escape,ctrl+c",
     "app.exit": "ctrl+d,<leader>q",
     "session.background": "<leader>z"
-  },
-  "plugins": [
-    {
-      "package": "github:neoscaler/opencode-ai-usagebar#28c9fa307e974136c9e2f06aaf0b26754918f2ca",
-      "options": {
-        "interval": 300,
-        "providers": ["anthropic", "openai"]
-      }
-    }
-  ]
+  }
 }

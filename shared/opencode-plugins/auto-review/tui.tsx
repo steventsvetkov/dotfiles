@@ -1,8 +1,9 @@
 // The terminal side of auto review: the /auto command switches it for the current session,
-// the prompt footer shows whether it is on, and flagged actions show why they need approval.
+// the prompt footer shows whether it is on, a line above the prompt lists this turn's
+// approvals, and flagged actions show why they need approval.
 import { Plugin } from "@opencode/plugin/tui"
-import { createEffect, createSignal, For } from "solid-js"
-import { AutoReview, type SessionState } from "./rpc"
+import { createEffect, createSignal, For, Show } from "solid-js"
+import { AutoReview, type Approval, type SessionState } from "./rpc"
 
 // The server part starts every message it attaches to a permission request with this.
 const MESSAGE_PREFIX = "Auto review"
@@ -28,6 +29,10 @@ export default Plugin.define({
     // Known state per main session. A session missing here has not been asked yet and is on,
     // like every new session.
     const [states, setStates] = createSignal<Record<string, boolean>>({})
+
+    // What auto review approved in each main session's current turn, since your last message
+    // (shown above the prompt).
+    const [approvedThisTurn, setApprovedThisTurn] = createSignal<Record<string, string[]>>({})
 
     function remember(state: SessionState) {
       setStates((previous) => ({ ...previous, [state.sessionID]: state.enabled }))
@@ -63,6 +68,25 @@ export default Plugin.define({
 
     // Another terminal may switch the same session.
     const stopListening = autoReview.events.on("changed", (event) => remember(event.data as SessionState))
+
+    const stopApproved = autoReview.events.on("approved", (event) => {
+      const { sessionID, target } = event.data as Approval
+      setApprovedThisTurn((previous) => ({ ...previous, [sessionID]: [...(previous[sessionID] ?? []), target] }))
+    })
+
+    // A new message from you in a main session starts a new turn. Subagents' tasks arrive as
+    // messages in their own sessions and do not count.
+    const stopNewTurn = context.data.on("session.inbox.enqueued", (event) => {
+      const { sessionID, item } = event.data
+      if (item.type !== "user" || context.data.session.root(sessionID) !== sessionID) return
+      setApprovedThisTurn((previous) => ({ ...previous, [sessionID]: [] }))
+    })
+
+    // "git status && git diff --stat" → "git status", "github_get_me" stays as it is.
+    function shortName(target: string): string {
+      const firstCommand = target.split(" && ")[0]
+      return firstCommand.split(/\s+/).slice(0, 2).join(" ")
+    }
 
     // OpenCode's permission prompt shows the command but not the reason the server part gives,
     // so the reason is shown above the prompt until the request is answered.
@@ -125,6 +149,30 @@ export default Plugin.define({
       },
     })
 
+    // Under the latest turn, just above the prompt: what auto review approved since your last
+    // message, e.g. "✓ Auto review · 3 approved · git status, gh pr, workmux list". Styled like
+    // OpenCode's own line under each reply ("Build · Opus 5.5 · 2m 17s"): indented 3 columns,
+    // the name first, the rest in grey. A blank line keeps it off the prompt box.
+    const removeApproved = context.ui.slot({
+      append: "session.composer.top",
+      render: () => {
+        const approved = () => approvedThisTurn()[currentMainSession() ?? ""] ?? []
+        const names = () => [...new Set(approved().map(shortName))].join(", ")
+        const count = () => approved().length
+
+        return (
+          <Show when={count()}>
+            <box paddingLeft={3} marginBottom={1}>
+              <text fg={context.theme.text.feedback.success.base} wrapMode="none" truncate>
+                {"✓ Auto review"}
+                <span style={{ fg: context.theme.text.muted }}>{` · ${count()} approved · ${names()}`}</span>
+              </text>
+            </box>
+          </Show>
+        )
+      },
+    })
+
     // A panel with a yellow bar on the left, like OpenCode's own notices.
     const removeReasons = context.ui.slot({
       append: "session.composer.top",
@@ -151,9 +199,12 @@ export default Plugin.define({
 
     return () => {
       stopListening()
+      stopApproved()
+      stopNewTurn()
       stopAsked()
       stopReplied()
       removeIndicator()
+      removeApproved()
       removeReasons()
     }
   },

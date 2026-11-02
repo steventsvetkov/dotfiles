@@ -1,5 +1,5 @@
-// Lets the terminal UI read and switch auto review for a session. The server part owns the state,
-// because that is where permission checks run.
+// Lets the terminal UI read and switch auto review for a session, and hear about each action it
+// approves. The server part owns the state, because that is where permission checks run.
 import { Rpc } from "@opencode/plugin/rpc"
 
 const session = {
@@ -16,6 +16,13 @@ const sessionState = {
   additionalProperties: false,
 }
 
+const approval = {
+  type: "object",
+  properties: { sessionID: { type: "string" }, target: { type: "string" } },
+  required: ["sessionID", "target"],
+  additionalProperties: false,
+}
+
 export const AutoReview = Rpc.define({
   id: "auto-review",
   methods: {
@@ -24,7 +31,10 @@ export const AutoReview = Rpc.define({
   },
   events: {
     changed: { schema: sessionState },
+    // One action approved, e.g. { sessionID, target: "git status" }.
+    approved: { schema: approval },
   },
 })
 
 export type SessionState = { sessionID: string; enabled: boolean }
+export type Approval = { sessionID: string; target: string }

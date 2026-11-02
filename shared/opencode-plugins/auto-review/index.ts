@@ -12,6 +12,9 @@
 //
 // It is on for every new session. /auto switches it for the current session (tui.tsx), and
 // subagents follow their main session.
+//
+// Approved commands are tagged: their result's metadata gets `autoReview` with the reason the
+// model gave. The terminal UI lists this turn's approvals above the prompt.
 import { Plugin } from "@opencode/plugin"
 import { AutoReview } from "./rpc"
 
@@ -109,16 +112,50 @@ export default Plugin.define({
       },
     })
 
+    // Approvals waiting to be written onto their command once it finishes, by tool call id.
+    // A Code Mode call can run several reviewed tools, so each id holds a list.
+    const pendingTags = new Map<string, Approval[]>()
+
+    // Remembers an approval for the command's tag, and tells the terminal UI.
+    async function recordApproval(event, rootSessionID: string, reason: string) {
+      const target = describeTarget(event.action, event.resources)
+      if (event.source?.type === "tool") {
+        const tags = pendingTags.get(event.source.id) ?? []
+        tags.push({ target, reason })
+        pendingTags.set(event.source.id, tags)
+      }
+      await rpc.events.emit("approved", { sessionID: rootSessionID, target })
+    }
+
+    // Tags the finished command with what auto review decided and why, in its result's
+    // metadata. OpenCode keeps that with the command; the model never sees it.
+    await ctx.tool.hook("execute.after", (event) => {
+      const tags = pendingTags.get(event.id)
+      if (!tags) return
+      pendingTags.delete(event.id)
+      if (event.status !== "completed") return
+
+      event.result = {
+        ...event.result,
+        metadata: { ...event.result.metadata, autoReview: { decision: "approved", approvals: tags } },
+      }
+    })
+
     await ctx.permission.hook("evaluate", async (event) => {
       if (event.effect !== "allow") return
       if (UNREVIEWED_ACTIONS.has(event.action)) return
 
       const key = [event.sessionID, event.action, ...event.resources].join("\n")
-      if (allowed.has(key)) return
 
       try {
         const sessionIDs = await sessionChain(ctx, event.sessionID)
-        if (!(await isEnabled(sessionIDs[0]))) return
+        const rootSessionID = sessionIDs[0]
+        if (!(await isEnabled(rootSessionID))) return
+
+        if (allowed.has(key)) {
+          await recordApproval(event, rootSessionID, "Same action approved earlier in this session")
+          return
+        }
 
         const userMessages = await collectUserMessages(ctx, sessionIDs)
         const review = await ctx.experimental.generate.text({
@@ -129,6 +166,7 @@ export default Plugin.define({
 
         if (verdict.decision === "allow") {
           allowed.add(key)
+          await recordApproval(event, rootSessionID, verdict.reason)
           return
         }
         event.effect = FLAGGED_EFFECT
@@ -198,8 +236,17 @@ function parseVerdict(text: string): { decision: "allow" | "block"; reason: stri
   if (!json) throw new Error(`unexpected answer: ${text.slice(0, 200)}`)
 
   const verdict = JSON.parse(json[0])
-  if (verdict.decision === "allow") return { decision: "allow", reason: "" }
+  if (verdict.decision === "allow") return { decision: "allow", reason: String(verdict.reason || "") }
   return { decision: "block", reason: String(verdict.reason || "flagged as risky") }
+}
+
+type Approval = { target: string; reason: string }
+
+// A short name for what was approved: the command for shell ("git status"), the tool for MCP
+// calls ("github_get_me").
+function describeTarget(action: string, resources: readonly string[]): string {
+  if (action === "shell") return resources.join(" && ")
+  return action
 }
 
 function errorText(error: unknown): string {
