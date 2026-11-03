@@ -16,6 +16,7 @@ cask "ghostty"
 cask "zen"                         # Zen Browser
 cask "visual-studio-code"
 cask "claude-code"
+cask "zoom"
 
 # Fonts
 cask "font-jetbrains-mono-nerd-font"

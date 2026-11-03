@@ -25,7 +25,7 @@ gaps.outer.right = 10
 # the usable area, so 10 is enough there. External monitors have no notch, so they need
 # the bar's full height: it matches the MacBook's notch (45 at the current resolution,
 # see sketchybar/helpers/bar_height.sh) + 10.
-gaps.outer.top = [{ monitor."Built-in" = 10 }, 55]
+gaps.outer.top = [{ monitor."Built-in" = 10 }, 50]
 gaps.outer.bottom = 10
 
 # Moving focus to another monitor also moves the mouse there.
@@ -105,12 +105,12 @@ ctrl-alt-cmd-minus = "resize smart -50"                   # Cmd+-  shrink
 # (Ghostty on macOS cannot open a window from the command line; use Cmd+N inside it.)
 ctrl-alt-cmd-enter = "exec-and-forget open -a Ghostty"
 
-# Cmd+Shift+; : service mode, for the rarely used commands below.
+# Cmd+Shift+; : prefix mode, for the rarely used commands below.
 # (Every mode change also tells SketchyBar, which shows the mode while it is not "main".)
-ctrl-alt-cmd-shift-semicolon = ["mode service", "exec-and-forget sketchybar --trigger aerospace_mode_change MODE=service"]
+ctrl-alt-cmd-shift-semicolon = ["mode prefix", "exec-and-forget sketchybar --trigger aerospace_mode_change MODE=prefix"]
 
 
-[mode.service.binding]
+[mode.prefix.binding]
 # Each binding ends by going back to main mode and telling SketchyBar.
 esc = ["reload-config", "mode main", "exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main"]                      # reload this file
 r = ["flatten-workspace-tree", "mode main", "exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main"]               # reset the layout
@@ -132,4 +132,8 @@ run = "layout floating"
 
 [[on-window-detected]]
 if = "test %{app-bundle-id} = pro.betterdisplay.BetterDisplay"
+run = "layout floating"
+
+[[on-window-detected]]
+if = "test %{app-bundle-id} = us.zoom.xos"
 run = "layout floating"

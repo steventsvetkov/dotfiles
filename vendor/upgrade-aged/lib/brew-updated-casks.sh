@@ -4,7 +4,7 @@
 # Homebrew skips those on `brew upgrade`, so upgrade-brew-aged.sh upgrades them
 # here, age-gated. Turn each app's own updater off, or it keeps updating past the gate.
 # Layers add their own casks in ~/.config/upgrade-aged/casks (one name per line).
-BREW_UPDATED_CASKS=(betterdisplay ghostty karabiner-elements visual-studio-code vorssaint zen)
+BREW_UPDATED_CASKS=(betterdisplay ghostty karabiner-elements visual-studio-code vorssaint zen zoom)
 
 if [[ -f "$HOME/.config/upgrade-aged/casks" ]]; then
   while IFS= read -r _cask; do
