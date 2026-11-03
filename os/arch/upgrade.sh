@@ -10,9 +10,7 @@ DOTFILES="$(cd "$OS_DIR/../.." && pwd)"
 source "$DOTFILES/lib/steps.sh"
 
 upgrade_homebrew
-upgrade_brewfile "$DOTFILES/shared/Brewfile"
-upgrade_layers
-upgrade_runtimes
+upgrade_aged_packages
 upgrade_tmux_plugins
 
 # Claude Code updates itself in the background.

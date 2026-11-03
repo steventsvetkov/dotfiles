@@ -15,7 +15,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2026-11-01T15:54:17Z</date>
+	<date>2026-11-02T15:54:19Z</date>
 	<key>SUUpdateGroupIdentifier</key>
 	<integer>3438842058</integer>
 	<key>activationPriority@DisplayGroup:-1001</key>
@@ -147,13 +147,13 @@
 	<key>defaultWidth@Display:4</key>
 	<integer>1920</integer>
 	<key>displayConfigurationId</key>
-	<integer>40</integer>
+	<integer>44</integer>
 	<key>displayConfigurationId@Display:2</key>
 	<integer>31</integer>
 	<key>displayConfigurationId@Display:3</key>
-	<integer>40</integer>
+	<integer>44</integer>
 	<key>displayConfigurationId@Display:4</key>
-	<integer>40</integer>
+	<integer>44</integer>
 	<key>displayIsTV_overrideUndo@v1552m41059</key>
 	<integer>0</integer>
 	<key>displayName_overrideUndo@v1552m41059</key>
@@ -221,15 +221,15 @@
 	<key>lastConnected@Display:2</key>
 	<real>815302792.12808299</real>
 	<key>lastConnected@Display:3</key>
-	<real>815324473.84290504</real>
+	<real>815398151.36183405</real>
 	<key>lastConnected@Display:4</key>
-	<real>815324473.12907195</real>
+	<real>815398150.47912598</real>
 	<key>lastUnseen@Display:2</key>
 	<real>815305222.39679205</real>
 	<key>lastUnseen@Display:3</key>
-	<real>815324473.18408501</real>
+	<real>815398150.52436101</real>
 	<key>lastUnseen@Display:4</key>
-	<real>815324473.93758905</real>
+	<real>815398151.43821394</real>
 	<key>manualResolutionList_overrideUndo@v1552m41059</key>
 	<string>[]</string>
 	<key>manualResolutions@v1552m41059</key>
@@ -383,7 +383,7 @@
 	<key>persistedDisplayID@Display:3</key>
 	<string>2</string>
 	<key>persistedDisplayID@Display:4</key>
-	<string>16</string>
+	<string>18</string>
 	<key>pro.betterdisplay.BetterDisplay.PrivilegedHelper.registrationConfiguration</key>
 	<string>privileged-helper-registration-v3:RvSlvN8onAr09hLa3wdDO+3VE2Icbk2J1SDvcuFiaPA=</string>
 	<key>settingsDisplayPaneSelectedTagID</key>
@@ -409,9 +409,9 @@
 	<key>storedIdentifiers@Display:2</key>
 	<string>[{"productName":"Color LCD","ioDisplayLocation":"IOService:\/AppleARMPE\/arm-io@10F00000\/AppleSoCIO\/disp0@74000000\/IOMobileFramebufferShim","systemUUID":"37D8832A-2D66-02CA-B9F7-8F30A301B230","infoDictionarySerial":4251086178,"infoDictionaryVendorNumber":1552,"modelNumber":41059,"edidProductName":"Color LCD","serial":4251086178,"vendorNumber":1552,"infoDictionaryModelNumber":41059}]</string>
 	<key>storedIdentifiers@Display:3</key>
-	<string>[{"infoDictionarySerial":21413,"yearOfManufacture":2025,"ioDisplayLocation":"IOService:\/AppleARMPE\/arm-io@10F00000\/AppleSoCIO\/dispext0@F4000000\/IOMobileFramebufferShim","modelNumber":30760,"productName":"LG ULTRAWIDE","infoDictionaryVendorNumber":7789,"weekOfManufacture":3,"serial":21413,"alphanumericSerialNumber":"503NTKF0M413","vendorNumber":7789,"infoDictionaryModelNumber":30760,"edidData":"AP\/\/\/\/\/\/\/wAebSh4pVMAAAMjAQS1UCF4\/mkFrk5MqScKUFQhCADRwGFAAQEBAQEBAQEBAQEBSNVwsNCgRlAwIDoAIE4xAAAaAAAA\/QAwZEaaOgAKICAgICAgAAAA\/ABMRyBVTFRSQVdJREUKAAAA\/wA1MDNOVEtGME00MTMKATICAx9yIwkHB0QQBAMBgwEAAOMFwADiAGrmBgUBU1MufX1wsNCgKVAwIDoAIE4xAAAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUA==","portID":16,"systemUUID":"7452C81D-C8B4-47B8-B9A0-8A0CEB1D17B5","edidProductName":"LG ULTRAWIDE"}]</string>
+	<string>[{"weekOfManufacture":3,"infoDictionaryModelNumber":30760,"vendorNumber":7789,"edidData":"AP\/\/\/\/\/\/\/wAebSh4pVMAAAMjAQS1UCF4\/mkFrk5MqScKUFQhCADRwGFAAQEBAQEBAQEBAQEBSNVwsNCgRlAwIDoAIE4xAAAaAAAA\/QAwZEaaOgAKICAgICAgAAAA\/ABMRyBVTFRSQVdJREUKAAAA\/wA1MDNOVEtGME00MTMKATICAx9yIwkHB0QQBAMBgwEAAOMFwADiAGrmBgUBU1MufX1wsNCgKVAwIDoAIE4xAAAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUA==","infoDictionaryVendorNumber":7789,"serial":21413,"infoDictionarySerial":21413,"productName":"LG ULTRAWIDE","ioDisplayLocation":"IOService:\/AppleARMPE\/arm-io@10F00000\/AppleSoCIO\/dispext0@F4000000\/IOMobileFramebufferShim","systemUUID":"7452C81D-C8B4-47B8-B9A0-8A0CEB1D17B5","edidProductName":"LG ULTRAWIDE","portID":16,"yearOfManufacture":2025,"alphanumericSerialNumber":"503NTKF0M413","modelNumber":30760}]</string>
 	<key>storedIdentifiers@Display:4</key>
-	<string>[{"productName":"Generic Display","systemUUID":"BBFA5E28-9C45-4917-AC2C-2E065D5D7A79","yearOfManufacture":0,"infoDictionarySerial":0,"infoDictionaryVendorNumber":1970170734,"modelNumber":1986622068,"weekOfManufacture":0,"vendorNumber":1970170734,"serial":0,"infoDictionaryModelNumber":1986622068}]</string>
+	<string>[{"modelNumber":1986622068,"vendorNumber":1970170734,"infoDictionaryModelNumber":1986622068,"infoDictionarySerial":0,"infoDictionaryVendorNumber":1970170734,"productName":"Generic Display","serial":0,"weekOfManufacture":0,"yearOfManufacture":0,"systemUUID":"BBFA5E28-9C45-4917-AC2C-2E065D5D7A79"}]</string>
 	<key>supportsHDR@Display:2</key>
 	<false/>
 	<key>supportsHDR@Display:3</key>

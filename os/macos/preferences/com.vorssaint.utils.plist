@@ -239,7 +239,7 @@
 	<key>launchAtLoginWanted</key>
 	<true/>
 	<key>linearScrollEnabled</key>
-	<true/>
+	<false/>
 	<key>linearScrollLines</key>
 	<integer>2</integer>
 	<key>liquidGlassEnabled</key>

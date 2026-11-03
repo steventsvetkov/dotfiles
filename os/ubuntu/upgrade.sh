@@ -13,9 +13,7 @@ sudo apt-get update
 sudo apt-get upgrade -y
 
 upgrade_homebrew
-upgrade_brewfile "$DOTFILES/shared/Brewfile"
-upgrade_layers
-upgrade_runtimes
+upgrade_aged_packages
 upgrade_tmux_plugins
 
 # Claude Code updates itself in the background.

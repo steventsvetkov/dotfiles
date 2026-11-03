@@ -17,6 +17,7 @@ lib/steps.sh            install/upgrade steps shared by all OSes
 shared/Brewfile         command line tools for every OS
 shared/home/            configs linked into $HOME on every OS
 shared/opencode-plugins/  OpenCode plugins, each folder linked whole into ~/.config/opencode/plugins
+vendor/                 third-party scripts copied in whole (each has a README with its source and our changes)
 themes/<name>/          one folder per color theme
 os/<name>/              everything for one OS: macos, ubuntu, arch
   install.sh            the OS's install recipe: a list of steps, in order
@@ -109,6 +110,11 @@ Things that are not committed:
 
 ### Packages
 
+- `dotfiles upgrade` is age-gated: `upgrade_aged_packages` (`lib/steps.sh`) runs the scripts in
+  `vendor/upgrade-aged`, which install a release only once it is 3 days old (unless the installed
+  version has a known vulnerability). That covers Homebrew, mise, uv tools, VS Code extensions
+  and App Store apps. Never upgrade with a plain `brew upgrade` or `mise upgrade`. A layer lists
+  its self-updating casks in `home/.config/upgrade-aged/casks`.
 - Install with Homebrew whenever possible. Command line tools for every OS go in
   `shared/Brewfile`; macOS apps and fonts (casks) go in `os/macos/Brewfile`.
 - Language runtimes (node, python, go, ...) go through mise: `shared/home/.config/mise/config.toml`.

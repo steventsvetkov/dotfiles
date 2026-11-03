@@ -36,6 +36,9 @@ brew "workmux"       # git worktree + tmux window per branch, agent dashboard
 # Language runtime manager
 brew "mise"
 
+# Bash 4.3 or newer, which the age-gated upgrade scripts in vendor/ need (macOS ships 3.2)
+brew "bash"
+
 # AI coding agents (Claude Code: os/macos/Brewfile, or its installer on Linux)
 brew "opencode"
 brew "github-mcp-server"   # GitHub tools for AI agents, signed in through gh

@@ -6,6 +6,10 @@
 # so `node` is the project's version inside the project.
 idiomatic_version_file_enable_tools = ["node"]
 
+# Never install a release younger than this, in installs and upgrades alike.
+# Keep it equal to MIN_AGE_DAYS in `upgrade_aged_packages` (lib/steps.sh).
+minimum_release_age = "3d"
+
 [tools]
 node = "lts"
 python = "latest"

@@ -269,24 +269,48 @@ upgrade_homebrew() {
   brew update
 }
 
-upgrade_brewfile() {
-  local brewfile="$1"
-  info "Upgrading packages (${brewfile/#$HOME/~})"
-  brew bundle upgrade --file "$brewfile"
+# Runs one of the age-gated upgrade scripts. A failure is reported but does not stop the
+# other upgrades, since each one only touches its own packages.
+run_aged_script() {
+  local script="$1"
+  local bash_path
+  bash_path="$(brew --prefix)/bin/bash"
+  if ! "$bash_path" "$DOTFILES/vendor/upgrade-aged/$script"; then
+    warn "$script failed, see above"
+  fi
 }
 
-upgrade_layers() {
-  local layer
-  for layer in $(list_layers); do
-    if [[ -f "$layer/Brewfile" ]]; then
-      upgrade_brewfile "$layer/Brewfile"
-    fi
-  done
-}
+# Upgrades packages only once a release is old enough, which Homebrew cannot do itself.
+# The scripts (vendor/upgrade-aged) upgrade everything that is installed, not just what
+# the Brewfiles list, and skip the wait for versions with a known vulnerability.
+# mise has its own setting for the age (minimum_release_age in its config.toml): keep them equal.
+upgrade_aged_packages() {
+  export MIN_AGE_DAYS=3
 
-upgrade_runtimes() {
-  info "Upgrading mise runtimes"
-  mise upgrade --yes
+  # The scripts need bash 4.3 or newer; macOS ships 3.2. Homebrew's bash is in the Brewfile.
+  if [[ ! -x "$(brew --prefix)/bin/bash" ]]; then
+    die "Homebrew's bash is missing. Run: dotfiles install"
+  fi
+
+  info "Upgrading Homebrew packages (at least $MIN_AGE_DAYS days old)"
+  run_aged_script upgrade-brew-aged.sh
+
+  info "Upgrading mise runtimes (at least $MIN_AGE_DAYS days old)"
+  run_aged_script upgrade-mise-aged.sh
+
+  # Not on every machine: these upgrade tools that may not be installed.
+  if command -v uv >/dev/null && [[ "$(uv tool list 2>&1)" != "No tools installed" ]]; then
+    info "Upgrading uv tools (at least $MIN_AGE_DAYS days old)"
+    run_aged_script upgrade-uv-tools-aged.sh
+  fi
+  if command -v code >/dev/null; then
+    info "Upgrading VS Code extensions (at least $MIN_AGE_DAYS days old)"
+    run_aged_script upgrade-vscode-extensions-aged.sh
+  fi
+  if command -v mas >/dev/null; then
+    info "Upgrading Mac App Store apps (at least $MIN_AGE_DAYS days old)"
+    run_aged_script upgrade-mas-aged.sh
+  fi
 }
 
 upgrade_tmux_plugins() {
