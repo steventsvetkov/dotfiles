@@ -17,6 +17,7 @@ cask "zen"                         # Zen Browser
 cask "visual-studio-code"
 cask "claude-code"
 cask "zoom"
+cask "tailscale-app"               # mesh VPN (sign in from its menu bar icon)
 
 # Fonts
 cask "font-jetbrains-mono-nerd-font"

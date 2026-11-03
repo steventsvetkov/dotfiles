@@ -16,17 +16,17 @@ start-at-login = true
 persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
 
 # Gaps between windows and around the screen edge.
-gaps.inner.horizontal = 10
-gaps.inner.vertical = 10
-gaps.outer.left = 10
-gaps.outer.right = 10
+gaps.inner.horizontal = 15
+gaps.inner.vertical = 15
+gaps.outer.left = 15
+gaps.outer.right = 15
 # Top: leave room for SketchyBar plus the usual 10.
 # On the MacBook screen, macOS already keeps the notch strip (where the bar is) out of
 # the usable area, so 10 is enough there. External monitors have no notch, so they need
 # the bar's full height: it matches the MacBook's notch (45 at the current resolution,
 # see sketchybar/helpers/bar_height.sh) + 10.
-gaps.outer.top = [{ monitor."Built-in" = 10 }, 50]
-gaps.outer.bottom = 10
+gaps.outer.top = [{ monitor."Built-in" = 10 }, 54]
+gaps.outer.bottom = 15
 
 # Moving focus to another monitor also moves the mouse there.
 on-focused-monitor-changed = ["move-mouse monitor-lazy-center"]
