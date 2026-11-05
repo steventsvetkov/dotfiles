@@ -10,17 +10,14 @@
   // Never upload sessions to OpenCode's share service; they may contain work code.
   "share": "disabled",
 
-  // Ask before commands that are hard to undo. Everything else follows OpenCode's defaults.
   "permissions": [
-    { "action": "shell", "resource": "git push *", "effect": "ask" },
-    { "action": "shell", "resource": "git reset --hard*", "effect": "ask" },
+    { "action": "shell", "resource": "git push *", "effect": "deny" },
+    { "action": "shell", "resource": "git reset --hard*", "effect": "deny" },
+    { "action": "shell", "resource": "sudo *", "effect": "deny" },
     { "action": "shell", "resource": "rm -rf *", "effect": "ask" },
-    { "action": "shell", "resource": "sudo *", "effect": "ask" }
   ],
 
-  // Experimental features. They may change or disappear in any release.
   "experimental": {
-    // Artifacts. Missing from the docs, but listed in the schema (opencode.ai/config.json).
     "artifacts": true
   },
 
@@ -28,7 +25,6 @@
   "skills": ["~/.config/claude/skills"],
 
   "agents": {
-    // A second opinion that can look at everything but change nothing. Use with @reviewer.
     "reviewer": {
       "description": "Reviews changes for bugs, security issues and missing tests, without editing files",
       "mode": "subagent",
@@ -39,7 +35,6 @@
     }
   },
 
-  // Slash commands: /review, /commit, /pr
   "commands": {
     "review": {
       "description": "Review the current changes",
@@ -85,9 +80,6 @@
           "GITHUB_PERSONAL_ACCESS_TOKEN=\"$(gh auth token)\" exec github-mcp-server stdio --toolsets=default,actions"
         ]
       }
-
-      // Work tools (Linear, Sentry, ...) come from layers, in an opencode.jsonc in the
-      // work folder, so they only load in work projects. See "Layers" in AGENTS.md.
     }
   }
 }

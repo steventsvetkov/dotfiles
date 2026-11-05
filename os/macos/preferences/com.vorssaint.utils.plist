@@ -57,7 +57,7 @@
 	<key>commandBarShortcutEnabled</key>
 	<true/>
 	<key>defaultDurationMinutes</key>
-	<integer>0</integer>
+	<integer>240</integer>
 	<key>displayBrightnessShortcutsEnabled</key>
 	<false/>
 	<key>extraBrightnessEnabled</key>
@@ -236,6 +236,8 @@
 	<string>orange</string>
 	<key>keepAwakeMouseJiggleIntervalMinutes</key>
 	<integer>5</integer>
+	<key>keepAwakeSwitchUsesUntil</key>
+	<false/>
 	<key>launchAtLoginWanted</key>
 	<true/>
 	<key>linearScrollEnabled</key>

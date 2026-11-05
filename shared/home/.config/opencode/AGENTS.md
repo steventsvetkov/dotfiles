@@ -50,3 +50,14 @@ Read by OpenCode (`~/.config/opencode/AGENTS.md`) and by Claude Code, whose glob
 
 - When encountering an error or issue, make sure to stop and investigate the problem before proceeding. Use debugging tools and techniques to identify the root cause of the issue and determine the best course of action to resolve it.
 - Provide clear and concise error messages to the human user, along with any relevant information or context. This will help the human user understand the issue and provide feedback or guidance as needed.
+
+## Coding style
+
+- Use the coding style and conventions that are consistent with the existing codebase. Follow any relevant style guides or best practices for the programming language you are using.
+- Make sure to validate your code and test it thoroughly before submitting it for review. Use automated testing tools and frameworks where possible to ensure that your code is reliable and maintainable.
+- Always check the codebase for existing functions or libraries that can be reused instead of writing new code from scratch. Favour reusing existing code unless it's from an unrelated domain and it would cause coupling.
+- Write tests only for critical code paths. Do not write tests for trivial code or code that is unlikely to change. Focus on writing tests for code that is complex, has a high risk of failure, or is critical to the functionality of the system.
+- Avoid writing code doc blocks or comments that are obvious or redundant. Only write comments that provide additional context or explanation for the code, such as why a certain approach was taken or what the expected behavior is. Use clear and concise language in your comments, and avoid using technical jargon or abbreviations that may be confusing to other developers.
+- Favour more generic and reusable code over specific and tightly coupled code. This will make the codebase more maintainable and easier to extend in the future. Avoid hardcoding values or assumptions that may change over time, and instead use configuration files or parameters to make the code more flexible.
+- Avoid unnecessary diffs and overengineering. Do not make changes to the codebase that are not necessary or that do not provide significant value.
+- When making architecture decisions, reword your intent and thing about it again, ask the user for their input and preferences
