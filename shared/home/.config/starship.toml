@@ -2,11 +2,15 @@
 
 # Prompt layout:
 #
-#   ~/code/project  main !1 ?2                     node 22.11  took 3s
+#   ~/code/project  <git> main !1 ?2 +12 -3        <x> 1  <jobs> 2  took 3s  <node> 22.11  14:05
 #   ❯
 #
+# Left: the host (over SSH only), the folder, git and the changed lines.
+# Right: the last exit code, background jobs, sudo, how long the last command took,
+# the project's language versions, and the time.
+#
 # Colors are terminal color names (blue, purple, ...), never hex codes,
-# so the prompt follows the active dotfiles theme.
+# so the prompt follows the active dotfiles theme. Only the text is colored, no backgrounds.
 #
 # Icons are Nerd Font code points written as escapes (\ue725 etc.),
 # because the glyphs themselves are invisible in editors without a Nerd Font.
@@ -19,12 +23,17 @@ $directory\
 $git_branch\
 $git_state\
 $git_status\
+$git_metrics\
 $fill\
+$status\
+$jobs\
+$sudo\
+$cmd_duration\
 $nodejs\
 $python\
 $golang\
 $rust\
-$cmd_duration\
+$time\
 $line_break\
 $character"""
 
@@ -39,6 +48,7 @@ style = "bold yellow"
 [directory]
 style = "bold blue"
 truncation_length = 3
+truncation_symbol = "…/"
 truncate_to_repo = true
 read_only = " \U000f033e"
 
@@ -53,6 +63,38 @@ style = "bold yellow"
 [git_status]
 format = "([$all_status$ahead_behind]($style) )"
 style = "yellow"
+
+# Lines added and removed in uncommitted changes.
+[git_metrics]
+disabled = false
+format = "([+$added]($added_style) )([-$deleted]($deleted_style) )"
+added_style = "green"
+deleted_style = "red"
+
+# The exit code of the last command, only when it failed.
+[status]
+disabled = false
+symbol = "\uf00d "
+format = "[$symbol$status]($style) "
+style = "red"
+
+[jobs]
+symbol = "\uf013 "
+number_threshold = 1
+format = "[$symbol$number]($style) "
+style = "blue"
+
+# Shown while sudo still has your password cached.
+[sudo]
+disabled = false
+symbol = "\uf0e7"
+format = "[$symbol]($style) "
+style = "yellow"
+
+[cmd_duration]
+min_time = 2000
+format = "[\U000f0954 $duration]($style) "
+style = "bright-black"
 
 [nodejs]
 symbol = "\ue718 "
@@ -74,9 +116,10 @@ symbol = "\U000f1617 "
 format = "[$symbol$version]($style) "
 style = "red"
 
-[cmd_duration]
-min_time = 2000
-format = "[\U000f0954 $duration]($style) "
+[time]
+disabled = false
+time_format = "%H:%M"
+format = "[\uf017 $time]($style)"
 style = "bright-black"
 
 [character]

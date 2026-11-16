@@ -543,7 +543,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -573,7 +574,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -603,7 +605,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -633,7 +636,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -663,7 +667,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -693,7 +698,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -723,7 +729,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -753,7 +760,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -783,7 +791,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -813,7 +822,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -843,7 +853,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -873,7 +884,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -903,7 +915,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -933,7 +946,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -963,7 +977,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -993,7 +1008,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -1023,7 +1039,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -1053,7 +1070,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -1083,7 +1101,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -1117,7 +1136,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -1147,7 +1167,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -1177,7 +1198,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -1204,7 +1226,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -1231,7 +1254,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -1261,7 +1285,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -1291,7 +1316,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }
@@ -1319,7 +1345,8 @@
                 "conditions": [
                   {
                     "bundle_identifiers": [
-                      "^com\\.mitchellh\\.ghostty$"
+                      "^com\\.mitchellh\\.ghostty$",
+                      "^dev\\.herdr\\.app$"
                     ],
                     "type": "frontmost_application_unless"
                   }

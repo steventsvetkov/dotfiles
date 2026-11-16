@@ -47,7 +47,7 @@ APP_FONT="sketchybar-app-font:Regular:15.0"
 STATUS_ICON_FONT="$FONT:Regular:25.0"
 
 # As tall as the MacBook notch area (measured, since it depends on the display resolution).
-# The bar reloads when that changes; see display_watcher at the end of this file.
+# The height is updated when that changes; see display_watcher at the end of this file.
 BAR_HEIGHT="$("$CONFIG_DIR/helpers/bar_height.sh")"
 
 
@@ -328,7 +328,7 @@ sketchybar --add item offline right \
   --subscribe offline wifi_change system_woke
 
 
-# Reload the whole bar when a display or resolution change gives it a different height.
+# Update the bar's height when a display or resolution change gives it a different one.
 sketchybar --add item display_watcher left \
   --set display_watcher drawing=off script="$PLUGINS/display_change.sh" \
   --subscribe display_watcher display_change

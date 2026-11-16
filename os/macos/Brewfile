@@ -11,14 +11,20 @@ brew "felixkratz/formulae/sketchybar"   # menu bar replacement (started by AeroS
 brew "ical-buddy"                  # calendar events for SketchyBar
 brew "switchaudio-osx"             # audio output switching for SketchyBar
 
+# Tailscale (mesh VPN) as the command line build with its own daemon. The menu bar app is
+# sandboxed and cannot run the Tailscale SSH server. The daemon runs as root:
+# `sudo brew services start tailscale`, then `sudo tailscale up --ssh`.
+brew "tailscale"
+
 # Apps
 cask "ghostty"
 cask "zen"                         # Zen Browser
 cask "visual-studio-code"
 cask "claude-code"
 cask "zoom"
-cask "tailscale-app"               # mesh VPN (sign in from its menu bar icon)
+cask "herdr-app"                    # desktop app for terminals and coding agents
 
 # Fonts
 cask "font-jetbrains-mono-nerd-font"
+cask "font-roboto-mono-nerd-font"
 cask "font-sketchybar-app-font"    # app icons in SketchyBar

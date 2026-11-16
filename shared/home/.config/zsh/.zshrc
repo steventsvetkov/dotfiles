@@ -80,3 +80,6 @@ done
 if [[ -f "$ZDOTDIR/local.zsh" ]]; then
   source "$ZDOTDIR/local.zsh"
 fi
+
+# Vite+ bin (https://viteplus.dev)
+. "/Users/steve/.config/vite-plus/env"

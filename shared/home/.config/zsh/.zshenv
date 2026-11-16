@@ -44,3 +44,6 @@ source "$ZDOTDIR/os-env.zsh"
 if [[ -f "$ZDOTDIR/local.zshenv" ]]; then
   source "$ZDOTDIR/local.zshenv"
 fi
+
+# Vite+ bin (https://viteplus.dev)
+. "/Users/steve/.config/vite-plus/env"
