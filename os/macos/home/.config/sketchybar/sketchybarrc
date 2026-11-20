@@ -14,7 +14,7 @@
 #        the focused app, the next meeting (within the hour).
 #        With several screens, each bar shows that screen's workspaces.
 # Right: warnings (offline, dotfiles out of sync), Claude agents waiting for you,
-#        GitHub pull requests for you, Slack mentions and DMs, Codex and Claude usage, volume,
+#        GitHub pull requests waiting for your review, Slack mentions and DMs, Codex and Claude usage, volume,
 #        battery, apps' menu bar icons (e.g. Vorssaint), date and time.
 #        Items that have nothing to say are hidden.
 # Nothing in the middle: the notch would cover it.
@@ -30,7 +30,7 @@
 #   codex      hover: the same for the ChatGPT plan's Codex limits
 #   dotfiles   hover: what is out of sync
 #   slack      click: open Slack
-#   GitHub     click: the pull requests assigned to you or waiting for your review
+#   GitHub     click: your pull requests, and the ones assigned to you, with their status
 #   agents     click: bring Ghostty to the front
 #   app icons  click: the app's own menu (e.g. Vorssaint)
 #
@@ -271,8 +271,8 @@ sketchybar --add item slack right \
     script="$PLUGINS/slack.sh" \
   --subscribe slack mouse.clicked mouse.entered mouse.exited
 
-# Shown only while pull requests on GitHub are assigned to you or wait for your review.
-# This icon is drawn taller than the others, so it gets a smaller size to match.
+# Shown while you have open pull requests on GitHub (yours or assigned to you); in yellow
+# with a count while some wait for your review. This icon is drawn taller than the others, so it gets a smaller size to match.
 sketchybar --add item github right \
   --set github \
     drawing=off \
