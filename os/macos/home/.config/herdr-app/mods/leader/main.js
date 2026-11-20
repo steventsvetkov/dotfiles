@@ -44,8 +44,11 @@ const BINDINGS = [
   { key: "(", label: "previous space", command: "space.prev" },
   { key: "$", label: "rename space", command: "space.rename" },
   { key: "a", label: "next agent", command: "agent.next" },
-  { key: "p", label: "spaces and tabs", command: "mod.open", args: { name: "picker" } },
+  { key: "s", label: "spaces and tabs", command: "mod.open", args: { name: "picker" } },
   { key: "P", label: "command palette", command: "app.palette" },
+  { key: "g", label: "changes (gitview)", command: "mod.open", args: { name: "gitview-sidebar" } },
+  { key: "G", label: "gitview tab", command: "mod.open", args: { name: "gitview-tab" } },
+  { key: "t", label: "auto title", command: "mod.open", args: { name: "auto-title" } },
   { key: "?", label: "help", command: "app.help" },
 ];
 
