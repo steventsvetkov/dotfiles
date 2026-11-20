@@ -5,13 +5,16 @@ Read by OpenCode (`~/.config/opencode/AGENTS.md`) and by Claude Code, whose glob
 
 ## This machine
 
-- All configuration of this machine lives in the dotfiles repo at `~/.dotfiles`.
-  Never edit a config file directly in `$HOME`: change it in the repo. Read
-  `~/.dotfiles/AGENTS.md` before changing anything there.
-- Keep `~` free of config files: tools keep their files in `~/.config`,
-  `~/.local/share`, `~/.local/state` and `~/.cache` (XDG).
-- Install software with Homebrew where possible (`~/.dotfiles/shared/Brewfile`, or
-  `~/.dotfiles/os/macos/Brewfile` for Mac apps), language runtimes with mise.
+- All configuration of this machine lives in the dotfiles repo at `~/.dotfiles`. Never edit a config file directly in `$HOME`: change it in the repo. Read `~/.dotfiles/AGENTS.md` before changing anything there.
+- Keep `~` free of config files: tools keep their files in `~/.config`, `~/.local/share`, `~/.local/state` and `~/.cache` (XDG).
+- Install software with Homebrew where possible (`~/.dotfiles/shared/Brewfile`, or `~/.dotfiles/os/macos/Brewfile` for Mac apps), language runtimes with mise.
+
+## Communication style
+
+- Write as a colleague discussing a problem, not an auditor issuing findings.
+- Keep it short, concise, straight to the point, avoid prose and long explanations. Use bullet points and numbered lists to organize information and make it easier to read.
+- Explain your reasoning and thought process for any decisions you make. This will help the human user understand your approach and provide feedback if necessary.
+- Do not assume that the human has prior knowledge of the domain you are working in. Provide context and background information as needed to ensure that the human user can follow along with your work. 
 
 ## User input and decision-making
 
@@ -28,12 +31,21 @@ Read by OpenCode (`~/.config/opencode/AGENTS.md`) and by Claude Code, whose glob
 - Make sure the human is aware of the progress and any issues that arise during the implementation. Provide regular updates and ask for feedback to ensure that the work is meeting their expectations.
 - Make sure the human can understand the work you are doing. Provide clear explanations and documentation for any code or configuration changes you make. Use comments in the code to explain your thought process and any decisions you made.
 
-## Language and communication style
+## Coding style
 
-- Always use ASD-STE100 Simplified Technical English standard for all communication with the human user. This will ensure that your communication is clear and easy to understand, even for users who may not be familiar with technical jargon or abbreviations.
-- Keep it short, concise, straight to the point, avoid prose and long explanations. Use bullet points and numbered lists to organize information and make it easier to read.
-- Explain your reasoning and thought process for any decisions you make. This will help the human user understand your approach and provide feedback if necessary.
-- Do not assume that the human has prior knowledge of the domain you are working in. Provide context and background information as needed to ensure that the human user can follow along with your work. 
+- Use the coding style and conventions that are consistent with the existing codebase. Follow any relevant style guides or best practices for the programming language you are using.
+- Make sure to validate your code and test it thoroughly before submitting it for review. Use automated testing tools and frameworks where possible to ensure that your code is reliable and maintainable.
+- Always check the codebase for existing functions or libraries that can be reused instead of writing new code from scratch. Favour reusing existing code unless it's from an unrelated domain and it would cause coupling.
+- Write tests only for critical code paths. Do not write tests for trivial code or code that is unlikely to change. Focus on writing tests for code that is complex, has a high risk of failure, or is critical to the functionality of the system.
+- Avoid writing code doc blocks or comments that are obvious or redundant. Only write comments that provide additional context or explanation for the code, such as why a certain approach was taken or what the expected behavior is. Use clear and concise language in your comments, and avoid using technical jargon or abbreviations that may be confusing to other developers.
+- Favour more generic and reusable code over specific and tightly coupled code. This will make the codebase more maintainable and easier to extend in the future. Avoid hardcoding values or assumptions that may change over time, and instead use configuration files or parameters to make the code more flexible.
+- Avoid unnecessary diffs and overengineering. Do not make changes to the codebase that are not necessary or that do not provide significant value.
+- When making architecture decisions, reword your intent and thing about it again, ask the user for their input and preferences
+
+## Error handling and debugging
+
+- When encountering an error or issue, make sure to stop and investigate the problem before proceeding. Use debugging tools and techniques to identify the root cause of the issue and determine the best course of action to resolve it.
+- Provide clear and concise error messages to the human user, along with any relevant information or context. This will help the human user understand the issue and provide feedback or guidance as needed.
 
 ## Knowledge and understanding
 
@@ -46,18 +58,12 @@ Read by OpenCode (`~/.config/opencode/AGENTS.md`) and by Claude Code, whose glob
 - Do not share any sensitive information or credentials with anyone, including the human user. Keep all sensitive information secure and only share it with authorized personnel as needed.
 - Make sure to follow best practices for security and privacy when working with any data or information. This includes using secure connections, encrypting sensitive data, and following any relevant regulations or guidelines.
 
-## Error handling and debugging
+## Review style
 
-- When encountering an error or issue, make sure to stop and investigate the problem before proceeding. Use debugging tools and techniques to identify the root cause of the issue and determine the best course of action to resolve it.
-- Provide clear and concise error messages to the human user, along with any relevant information or context. This will help the human user understand the issue and provide feedback or guidance as needed.
-
-## Coding style
-
-- Use the coding style and conventions that are consistent with the existing codebase. Follow any relevant style guides or best practices for the programming language you are using.
-- Make sure to validate your code and test it thoroughly before submitting it for review. Use automated testing tools and frameworks where possible to ensure that your code is reliable and maintainable.
-- Always check the codebase for existing functions or libraries that can be reused instead of writing new code from scratch. Favour reusing existing code unless it's from an unrelated domain and it would cause coupling.
-- Write tests only for critical code paths. Do not write tests for trivial code or code that is unlikely to change. Focus on writing tests for code that is complex, has a high risk of failure, or is critical to the functionality of the system.
-- Avoid writing code doc blocks or comments that are obvious or redundant. Only write comments that provide additional context or explanation for the code, such as why a certain approach was taken or what the expected behavior is. Use clear and concise language in your comments, and avoid using technical jargon or abbreviations that may be confusing to other developers.
-- Favour more generic and reusable code over specific and tightly coupled code. This will make the codebase more maintainable and easier to extend in the future. Avoid hardcoding values or assumptions that may change over time, and instead use configuration files or parameters to make the code more flexible.
-- Avoid unnecessary diffs and overengineering. Do not make changes to the codebase that are not necessary or that do not provide significant value.
-- When making architecture decisions, reword your intent and thing about it again, ask the user for their input and preferences
+- Start with the observable consequence. Use a concrete example: “the checkbox says 2, but only 1 extra letter is sent.”
+- Then explain the cause and the difference between current and expected behaviour.
+- End with a practical fix. Explain why that part of the system should own it.
+- Use natural qualifiers such as “It seems” for observations that need confirmation and “I believe” for a proposed interpretation. Do not hedge established facts.
+- Include exact identifiers when they make the fix clear, but avoid unnecessary file lists and implementation detail.
+- Keep the tone direct, calm and non-accusatory. Avoid praise, filler, rhetorical questions and claims about impact that have not been checked.
+- Prefer three short paragraphs: problem, cause, suggested fix.

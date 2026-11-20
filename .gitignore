@@ -1,2 +1,5 @@
 .DS_Store
 os/macos/karabiner/automatic_backups/
+# Herdr writes these into every mod folder on start
+os/macos/herdr-mods/*/gpui-kit.d.ts
+os/macos/herdr-mods/*/jsconfig.json

@@ -19,6 +19,9 @@ link_dotfiles "$OS_DIR"
 # Karabiner replaces its config file when it saves, which would break a link to
 # the file, so its whole folder is linked instead.
 link_file "$OS_DIR/karabiner" "$HOME/.config/karabiner"
+# Herdr resolves a mod's imports from the real path of main.js, so a mod with
+# several files only works when its whole folder is linked, not file by file.
+link_file "$OS_DIR/herdr-mods/auto-title" "$HOME/.config/herdr-app/mods/auto-title"
 install_layers
 
 set_zdotdir /etc/zshenv

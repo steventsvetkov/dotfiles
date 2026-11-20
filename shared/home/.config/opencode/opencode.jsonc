@@ -13,8 +13,6 @@
   "permissions": [
     { "action": "shell", "resource": "sudo *", "effect": "deny" },
     { "action": "shell", "resource": "rm *", "effect": "deny" },
-    { "action": "shell", "resource": "git commit *", "effect": "deny" },
-    { "action": "shell", "resource": "git push *", "effect": "deny" },
     { "action": "shell", "resource": "git reset *", "effect": "deny" },
   ],
 

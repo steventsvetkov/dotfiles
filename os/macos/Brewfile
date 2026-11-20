@@ -21,7 +21,6 @@ cask "ghostty"
 cask "zen"                         # Zen Browser
 cask "visual-studio-code"
 cask "claude-code"
-cask "zoom"
 cask "herdr-app"                    # desktop app for terminals and coding agents
 
 # Fonts
